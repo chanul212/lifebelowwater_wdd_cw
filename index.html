@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="4; url=home.html">
+  <title>Life Below Water – Welcome</title>
+
+  <style>
+    :root {
+      --deep-ocean: #001219;
+      --navy: #005f73;
+      --teal: #0a9396;
+      --cyan: #94d2bd;
+      --seafoam: #e9d8a6;
+      --white: #ffffff;
+    }
+
+    * { margin: 0; padding: 0; 
+      box-sizing: border-box; 
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--deep-ocean);
+      color: var(--white);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+   
+    .video-bg {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    
+    .video-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background: rgba(0, 57, 80, 0.7);  /* darkness of video */
+    }
+
+    
+    .splash-content {
+      position: relative;
+      z-index: 10;
+      max-width: 700px;
+      padding: 40px 30px;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { 
+        opacity: 0; 
+        transform: translateY(30px); 
+      }
+      to   { 
+        opacity: 1; 
+        transform: translateY(0); }
+    }
+
+    .splash-logo {
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      font-size: 3.5rem;
+      color: var(--white);
+      margin-bottom: 10px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .splash-logo span { color: #0289ff; }
+
+    .splash-tagline {
+      font-size: 1.1rem;
+      color: var(--cyan);
+      margin-bottom: 30px;
+      opacity: 0.95;
+    }
+
+    .splash-mission {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .team-names {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 35px;
+    }
+    .team-name-tag {
+      background: rgba(10,147,150,0.3);
+      border: 1px solid var(--teal);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 0.9rem;
+      color: var(--cyan);
+    }
+
+    
+    .loader-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .loader {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(148,210,189,0.2);
+      border-top: 4px solid var(--cyan);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #countdown {
+      font-size: 1.1rem;
+      color: var(--seafoam);
+      letter-spacing: 1px;
+    }
+
+    /* Skip button */
+    .skip-btn {
+      background: transparent;
+      border: 2px solid var(--cyan);
+      color: var(--cyan);
+      padding: 10px 28px;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .skip-btn:hover {
+      background: var(--cyan);
+      color: var(--deep-ocean);
+      transform: scale(1.05);
+    }
+
+    /* SDG badge */
+    .sdg-badge {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 10;
+      background: rgba(0,95,115,0.8);
+      border: 1px solid var(--teal);
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      color: var(--cyan);
+    }
+  </style>
+</head>
+<body>
+
+  <video autoplay muted loop playsinline class="video-bg">
+    <source src="ALL_MEDIA/SplashScreen.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+
+  <div class="splash-content">
+    <div class="splash-logo">
+      <span>L</span>ife<span>B</span>elow<span>W</span>ater
+    </div>
+    <p class="splash-tagline">UN Sustainable Development Goal 14</p>
+
+    <p class="splash-mission">
+      Protecting, restoring, and sustainably using the world's oceans, seas, and marine resources
+      for a healthier planet and a better future for all.
+    </p>
+
+    <div class="team-names">
+      <span class="team-name-tag">Sashin Fernando</span>
+      <span class="team-name-tag">Pabhasith Ranathunga</span>
+      <span class="team-name-tag">Lakmina Gayathra</span>
+      <span class="team-name-tag">Chanul Dilhara</span>
+    </div>
+
+    <div class="loader-wrap">
+      <div class="loader" role="img" aria-label="Loading animation"></div>
+      <p id="countdown">Entering site in 4...</p>
+    </div>
+
+    <a href="home.html" class="skip-btn" id="skip-btn">Skip Intro →</a>
+  </div>
+
+  <div class="sdg-badge">SDG 14 – Life Below Water</div>
+
+  <script>
+    // Countdown timer 
+    let seconds = 4;
+    const countdownEl = document.getElementById('countdown');
+    let timer = setInterval(() => {
+      seconds--;
+      if (seconds <= 0) {
+        clearInterval(timer);
+        countdownEl.textContent = 'Entering site...';
+        window.location.href = 'home.html';
+      } else {
+        countdownEl.textContent = `Entering site in ${seconds}...`;
+      }
+    }, 1000);
+
+    // Skip button
+    document.getElementById('skip-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      clearInterval(timer);
+      window.location.href = 'home.html';
+    });
+  </script>
+</body>
+</html>
