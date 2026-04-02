@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Editor – Pabhasith Ranathunga</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root{
+      --deep-ocean:#001219;
+      --navy:#005f73;
+      --teal:#0a9396;
+      --cyan:#94d2bd;
+      --seafoam:#e9d8a6;
+      --white:#ffffff
+    }
+
+    body {
+      line-height: 1.6;
+    }
+
+    /* Student details */
+    .stud {
+      background: linear-gradient(90deg, #001219, #005f73);
+      color: #94d2bd;
+      text-align: center;
+      margin-top: 100px;
+      font-size: 30px;
+      font-weight: bold;
+      padding: 10px;
+    }
+
+    main {
+      width: 100%;
+      padding-top: 0;
+    }
+
+    .toc {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(148, 210, 189, 0.2);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 40px;
+    }
+
+    .toc h2 {
+      color: #6ae6ff;
+      margin-bottom: 14px;
+      font-size: 1rem;
+      border-left: 4px solid #0a9396;
+      padding-left: 12px;
+      text-shadow: none;
+      text-align: left;
+    }
+
+    .toc a {
+      display: block;
+      color: #94d2bd;
+      text-decoration: none;
+      padding: 4px 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(148, 210, 189, 0.15);
+    }
+
+    .toc a:hover {
+      color: #0a9396;
+    }
+
+    .toc a:last-child {
+      border-bottom: none;
+    }
+
+    /* Sections */
+    section {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(148, 210, 189, 0.2);
+      border-radius: 10px;
+      padding: 28px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: #6ae6ff !important;
+      font-size: 1.3rem;
+      border-left: 4px solid #0a9396;
+      padding-left: 14px;
+      margin-bottom: 16px;
+      margin-top: 0;
+      text-align: left !important;
+      text-shadow: none !important;
+    }
+
+    h3 {
+      color: #94d2bd;
+      font-size: 1.05rem;
+      margin: 20px 0 10px;
+      text-align: left;
+      text-shadow: none;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.92rem;
+    }
+
+    ul {
+      padding-left: 22px;
+      margin-bottom: 14px;
+    }
+
+    ul li {
+      margin-bottom: 6px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.92rem;
+    }
+
+    /* Page link buttons */
+    .page-link {
+      display: inline-block;
+      background: #005f73;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin: 6px 6px 0 0;
+      transition: background 0.2s;
+    }
+
+    .page-link:hover {
+      background: #0a9396;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 10px;
+    }
+
+    th {
+      background: #005f73;
+      color: white;
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    td {
+      padding: 9px 12px;
+      border-bottom: 1px solid rgba(148, 210, 189, 0.2);
+      vertical-align: top;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.88rem;
+    }
+
+    tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    /* Go to top */
+    p.top {
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    p.top a {
+      color: #94d2bd;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+
+    p.top a:hover {
+      color: #0a9396;
+      text-decoration: underline;
+    }
+
+    /* Back to top */
+    .back-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0a9396;
+      color: white;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .back-top:hover {
+      background: #005f73;
+    }
+
+    .st_details {
+      color: white;
+      text-align: center;
+      background-color: #005f73;
+      padding: 20px;
+      margin: 20px auto;
+    }
+
+    /* Page layout with sidebar */
+    .page-layout {
+      display: flex;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px 80px;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    /* Left sidebar nav */
+    .side-nav {
+      width: 210px;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(148, 210, 189, 0.2);
+      border-radius: 10px;
+      padding: 20px 16px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .side-nav h4 {
+      color: #6ae6ff;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 14px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(148, 210, 189, 0.2);
+    }
+
+    .side-nav > ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .side-nav > ul > li {
+      margin-bottom: 12px;
+    }
+
+    .side-nav > ul > li > span {
+      color: #94d2bd;
+      font-size: 0.82rem;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .side-nav > ul > li > a {
+      color: #94d2bd;
+      font-size: 0.82rem;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      text-decoration: none;
+    }
+
+    .side-nav > ul > li > a:hover {
+      color: #0a9396;
+    }
+
+    .side-nav ul ul {
+      list-style: none;
+      padding-left: 10px;
+      margin: 0;
+    }
+
+    .side-nav ul ul li {
+      margin-bottom: 3px;
+      font-size: 0.92rem;
+    }
+
+    .side-nav ul ul li::before {
+      content: "○ ";
+      color: rgba(148, 210, 189, 0.5);
+      font-size: 0.7rem;
+    }
+
+    .side-nav ul ul li a {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .side-nav ul ul li a:hover {
+      color: #94d2bd;
+    }
+
+    .page-layout > main {
+      flex: 1;
+      min-width: 0;
+      padding-top: 0;
+      width: 100%;
+    }
+
+    @media (max-width: 760px) {
+      .page-layout { flex-direction: column; padding: 0 20px 60px; }
+      .side-nav { width: 100%; position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="home.html"><img src="ALL_MEDIA/LIFE_UNDER_WATER.png" alt="Logo"></a>
+      <p><a href="home.html"><span style="color: #0289ff;">L</span>ife<span style="color: #0289ff;">B</span>elow<span style="color: #0289ff;">W</span>ater</p></a>
+    </div>
+    <ul class="nav-list">
+      <a href="home.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="team.html">Team</a>
+      <a href="user_profile.html">Profile</a>
+      <a href="sitemap.html">Sitemap</a>
+    </ul>
+  </nav>
+
+  <!-- Student details -->
+  <p class="stud">Pabhasith Ranathunga, Group 4 (Team 8), Student 2</p>
+
+  <div class="page-layout" id="top">
+
+    <!-- Left sidebar nav -->
+    <nav class="side-nav" aria-label="Core pages developed">
+      <h4>Core pages developed:</h4>
+      <ul>
+        <li>
+          <span>Student 1</span>
+          <ul>
+            <li><a href="home.html">Home page</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="content_ST1.html">Content</a></li>
+          </ul>
+        </li>
+        <li>
+          <span>Student 2</span>
+          <ul>
+            <li><a href="splash.html">Splash Screen</a></li>
+            <li><a href="quiz.html">Action Impact Simulator</a></li>
+            <li><a href="content_ST2.html">Content</a></li>
+          </ul>
+        </li>
+        <li>
+          <span>Student 3</span>
+          <ul>
+            <li><a href="feedback.html">Feedback</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="content_ST3.html">Content</a></li>
+          </ul>
+        </li>
+        <li>
+          <span>Student 4</span>
+          <ul>
+            <li><a href="user_profile.html">User Profile</a></li>
+            <li><a href="sitemap.html">Sitemap</a></li>
+            <li><a href="content_ST4.html">Content</a></li>
+          </ul>
+        </li>
+        <li><a href="#challenges">Challenges and Lessons Learned</a></li>
+        <li><a href="#janet">Compliance</a></li>
+        <li><a href="#meetings">Group Meetings and Individual Contribution Log</a></li>
+        <li><a href="#references">References</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <!-- 1. Overview -->
+      <section id="overview">
+        <h2>1. Student Overview</h2>
+        <p><strong>Name:</strong> Pabhasith Ranathunga</p>
+        <p><strong>Role:</strong> Splash Screen & Action Impact Simulator (Quiz)</p>
+        <p><strong>Completed Pages / Tasks:</strong></p>
+        <ul>
+          <li>Splash Screen (splash.html) – animated entry page with countdown and skip button</li>
+          <li>Quiz / Action Impact Simulator (quiz.html) – interactive SDG action scoring tool</li>
+          <li>Content Page – Marine Biodiversity & Coral Reefs (content_ST2.html)</li>
+        </ul>
+        <a href="splash.html" class="page-link" target="_blank">View Splash Screen</a>
+        <a href="quiz.html" class="page-link" target="_blank">View Quiz / AIS</a>
+        <a href="content_ST2.html" class="page-link" target="_blank">View Content Page</a>
+      </section>
+
+      <!-- 2. Splash Screen -->
+      <section id="splash">
+        <h2>2. Splash Screen</h2>
+        <h3>Technical Description</h3>
+        <p>The splash screen uses a full-viewport CSS layout with <code>height: 100vh</code> and <code>overflow: hidden</code> to fill the screen without scrolling. The animated wave background is created entirely with CSS using <code>::before</code> and <code>::after</code> pseudo-elements on a <code>.wave-bg</code> div, each animated with a custom <code>@keyframes wave</code> rule that applies a rotating <code>translateX</code> transform to two overlapping ellipses of different opacity and animation duration, creating the illusion of layered ocean waves.</p>
+        <p>The content fades in on load using a <code>@keyframes fadeIn</code> animation applied to the <code>.splash-content</code> wrapper, transitioning from <code>opacity: 0; translateY(30px)</code> to fully visible. This is purely CSS-driven with no JavaScript required for the animation itself.</p>
+        <p>A JavaScript countdown timer uses <code>setInterval</code> to decrement a seconds counter every 1000ms, updating the <code>#countdown</code> element's text content and redirecting via <code>window.location.href</code> when it reaches zero. The skip button's click listener calls <code>clearInterval</code> on the running timer before redirecting, preventing a double-redirect race condition. A <code>&lt;meta http-equiv="refresh"&gt;</code> tag provides a fallback redirect for non-JavaScript environments.</p>
+        <h3>Accessibility</h3>
+        <p>The loading animation <code>div</code> includes <code>aria-label="Loading animation"</code> so screen readers announce it meaningfully. The skip button is a native <code>&lt;a&gt;</code> element, making it keyboard-focusable by default. The SDG badge in the corner uses a fixed position but does not obscure any interactive content.</p>
+        <a href="validation_ST2.html#splashVal" class="page-link" target="_blank">See Validation Evidence</a>
+        <a href="splash.html" class="page-link" target="_blank">View Splash Screen</a>
+      </section>
+
+      <!-- 3. Quiz / AIS -->
+      <section id="quiz">
+        <h2>3. Quiz / Action Impact Simulator</h2>
+        <h3>Technical Description</h3>
+        <p>The Action Impact Simulator presents a grid of clickable action cards, each representing a real-world SDG 14 action (e.g. reducing plastic use, buying sustainable seafood). The grid uses <code>display: grid</code> with <code>repeat(auto-fit, minmax(260px, 1fr))</code> to adapt the number of columns responsively without any media queries.</p>
+        <p>Each card stores a numeric impact score in its JavaScript data object. When clicked, JavaScript toggles a <code>.selected</code> class on the card element and adds or subtracts the card's impact value from a running total. The <code>.selected</code> state is styled with a cyan border and a CSS <code>::after</code> pseudo-element displaying a checkmark, providing instant visual feedback without DOM injection.</p>
+        <p>The score display uses a CSS progress bar (<code>#progress-bar</code>) whose <code>width</code> is updated as a percentage via JavaScript each time a card is toggled. The feedback panel text, impact label colour, and message are dynamically updated based on score thresholds using a series of conditional checks. A reset button clears all selections, zeroes the score, and resets the progress bar width to 0% via JavaScript.</p>
+        <h3>Accessibility</h3>
+        <p>Each action card includes a descriptive <code>aria-label</code>. The progress bar uses <code>role="progressbar"</code> with <code>aria-valuenow</code>, <code>aria-valuemin</code>, and <code>aria-valuemax</code> attributes updated dynamically by JavaScript. The reset button is a native <code>&lt;button&gt;</code> element, keyboard accessible by default.</p>
+        <a href="validation_ST2.html#quizVal" class="page-link" target="_blank">See Validation Evidence</a>
+        <a href="quiz.html" class="page-link" target="_blank">View Quiz / AIS</a>
+      </section>
+
+      <!-- 4. Content Page -->
+      <section id="content">
+        <h2>4. Content Page – Marine Biodiversity & Coral Reefs</h2>
+        <h3>Technical Description</h3>
+        <p>The content page uses a two-column CSS Grid layout: a 240px sticky side navigation column and a flexible <code>1fr</code> article column. The <code>position: sticky; top: 100px</code> on the side nav keeps it anchored in view as the user scrolls through the long-form article, significantly improving navigation of dense content without JavaScript.</p>
+        <p>The article uses a strict heading hierarchy: <code>&lt;h1&gt;</code> for the page title, <code>&lt;h2&gt;</code> for major sections (styled with a left teal border and the seafoam colour variable), and <code>&lt;h3&gt;</code> for subsections. All images use <code>object-fit: cover</code> with a fixed height of 300px to maintain visual consistency regardless of the source image's aspect ratio. Stat callout boxes use a semi-transparent navy background with a teal border, drawing the eye without interrupting reading flow.</p>
+        <p>A fixed "Go to Top" button uses <code>position: fixed; bottom: 30px; right: 30px</code> and links to <code>#top</code> on the <code>&lt;main&gt;</code> element, providing persistent navigation for long pages.</p>
+        <h3>Accessibility</h3>
+        <p>The side navigation uses <code>aria-label="Page sections"</code> to distinguish it from the main site navigation. All images include descriptive alt text. The grid collapses to a single column on screens below 768px, and the side navigation is hidden on mobile via a media query to avoid layout clutter on small screens.</p>
+        <a href="validation_ST2.html#contentVal" class="page-link" target="_blank">See Validation Evidence</a>
+        <a href="content_ST2.html" class="page-link" target="_blank">View Content Page</a>
+      </section>
+
+      <!-- 5. Challenges -->
+      <section id="challenges">
+        <h2>5. Challenges & Lessons Learned</h2>
+        <p><strong>Challenge 1: Countdown timer double-redirect.</strong> When the skip button was clicked just as the timer fired, both redirect paths executed simultaneously, causing unpredictable behaviour. Resolved by storing the <code>setInterval</code> return value and calling <code>clearInterval</code> inside the skip button's event listener before setting <code>window.location.href</code>.</p>
+        <p><strong>Challenge 2: AIS score going negative.</strong> When users deselected all cards after previously selecting them, rounding errors in the percentage calculation caused the progress bar width to briefly go below 0%. Resolved by clamping the score to a minimum of 0 before calculating the percentage.</p>
+        <p><strong>Challenge 3: CSS wave animation performance.</strong> The wave pseudo-elements initially caused visible jank on lower-powered devices due to layout-triggering properties. Resolved by replacing <code>margin</code> animations with <code>transform</code>-only animations, which are GPU-accelerated and do not trigger layout recalculations.</p>
+        <p><strong>Lesson:</strong> Testing interactive features on multiple devices early -not just at the end -prevents integration surprises. JavaScript timer and animation interactions are particularly sensitive to device performance.</p>
+      </section>
+
+      <!-- 6. Accessibility -->
+      <section id="accessibility">
+        <h2>6. Accessibility Considerations</h2>
+        <p>All images across my pages include descriptive <code>alt</code> text conveying the informational content of each image. Semantic HTML elements (<code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>) are used throughout. All interactive elements -action cards, reset button, skip button -are keyboard accessible, either by being native elements or by having <code>tabindex="0"</code> and keydown event listeners.</p>
+        <p>Colour contrast between the cyan text and navy/dark backgrounds meets WCAG 2.1 AA requirements. The splash screen's animated wave background does not contain any information and is purely decorative, so it does not require an alternative for screen-reader users.</p>
+      </section>
+
+      <!-- 7. JANET -->
+      <section id="janet">
+        <h2>7. JANET Compliance</h2>
+        <p>All content on my pages is original and created specifically for this coursework. No copyrighted text, images, or code has been reproduced. All images used are either royalty-free stock images or AI-generated, with no identifiable individuals depicted. No personal data is collected by any of my pages -there are no server-side submissions and no cookies. All JavaScript was written by me without copying external libraries or templates.</p>
+        <p>Content relating to SDG 14 is factual and referenced against credible scientific and intergovernmental sources. No content promotes harmful, discriminatory, or illegal activity.</p>
+      </section>
+
+  <!-- 8. Meetings -->
+  <section id="meetings">
+  <h2>9. Group Meetings & Contribution Log</h2>
+  <table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Date & Time</th>
+      <th>Format</th>
+      <th>Objective</th>
+      <th>Attended</th>
+      <th>My Contribution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>10 Feb 2026 - 13:00</td>
+      <td>Face to face</td>
+      <td>Agree SDG topic and assign individual roles</td>
+      <td>Yes</td>
+      <td>Proposed SDG 14 and volunteered for the template/home page role.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>17 Feb 2026 - 22:00</td>
+      <td>Online (WhatsApp Group Call)</td>
+      <td>Agree colour palette and overall visual style</td>
+      <td>Yes</td>
+      <td>Presented three colour palette options, the deep-ocean/navy/cyan palette was agreed.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>28 Feb 2026 - 23:00</td>
+      <td>Online (Google Meet)</td>
+      <td>Share template with all team members</td>
+      <td>Yes</td>
+      <td>Completed and shared the HTML template and style.css, explained which parts must not be modified.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>15 Mar 2026 - 20:00</td>
+      <td>Online (Google Meet)</td>
+      <td>Review progress of individual pages</td>
+      <td>Yes</td>
+      <td>Completed the Home Page and Gallery.</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>17 Mar 2026 - 23:00</td>
+      <td>Online (Google Meet)</td>
+      <td>Integration testing - checking all pages together</td>
+      <td>Yes</td>
+      <td>Tested all navigation links across every page, identified and flagged two broken links to teammates.</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>27 Mar 2026 - 02:00</td>
+      <td>Online</td>
+      <td>Final review and validation pass</td>
+      <td>Yes</td>
+      <td>Ran HTML validation on all pages; corrected stray closing tags on home.html and gallery.html.</td>
+    </tr>
+  </tbody>
+  </table>
+  </section>
+
+    <!-- 9. References -->
+    <section id="references">
+    <h2>9. References</h2>
+    <ul class="ref">
+        <li>IUCN (2023) <em>Coral reefs and climate change</em>. [Online] Available at: <a href="https://www.iucn.org/resources/issues-brief/coral-reefs-and-climate-change" target="_blank">https://www.iucn.org/resources/issues-brief/coral-reefs-and-climate-change</a> [Accessed 10 February 2026].</li>
+        <li>MDN Web Docs (2026) <em>JavaScript setInterval</em>. [Online] Available at: <a href="https://developer.mozilla.org/en-US/docs/Web/API/setInterval" target="_blank">https://developer.mozilla.org/en-US/docs/Web/API/setInterval</a> [Accessed 20 March 2026].</li>
+        <li>United Nations (2024) <em>SDG 14: Life below water</em>. [Online] Available at: <a href="https://sdgs.un.org/goals/goal14" target="_blank">https://sdgs.un.org/goals/goal14</a> [Accessed 9 February 2026].</li>
+        <li>University of Westminster (2025) <em>4COSC011W: Web design and development</em>. [Lecture notes] Westminster Exchange. 2025/26.</li>
+        <li>Vecteezy (2026) <em>Free vector art, stock photos &amp; videos</em>. [Online] Available at: <a href="https://www.vecteezy.com" target="_blank">https://www.vecteezy.com</a> [Accessed 30 March 2026].</li>
+        <li>W3Schools (2026) <em>HTML and CSS reference</em>. [Online] Available at: <a href="https://www.w3schools.com" target="_blank">https://www.w3schools.com</a> [Accessed 20 March 2026].</li>
+    </ul>
+    </section>
+
+      <p class="top"><a href="#top">Go to Top</a></p>
+
+    </main>
+
+  </div>
+  <a href="#top" class="back-top" aria-label="Back to top">↑</a>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+
+        <div class="footer-section">
+          <h4>LifeBelowWater</h4>
+          <p style="font-size:0.85rem;color:#9ca89a;">A University of Westminster web development project <br> UN SDG 14 - Life Below Water.</p>
+        </div>
+
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <a href="home.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="team.html">Team</a>
+          <a href="sitemap.html">Sitemap</a>
+        </div>
+
+        <div class="footer-section">
+          <h4>This Page</h4>
+          <a href="pageEditor_ST2.html" target="_blank" style="color: #0289ff;">Page Editor - Pabhasith Ranathunga (Student 2)</a>
+          <a href="validation_ST2.html" target="_blank" style="color: #0289ff;">Validation - Pabhasith Ranathunga (Student 2)</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 LifeBelowWater | University of Westminster Web Design Coursework</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

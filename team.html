@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Below Water – Our Team</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --deep-ocean: #001219;
+      --navy: #005f73;
+      --teal: #0a9396;
+      --cyan: #94d2bd;
+      --seafoam: #e9d8a6;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #001219 0%, #003049 100%);
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    .team-section {
+      padding: 60px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .team-section > p {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 50px;
+      font-size: 1.05rem;
+    }
+
+    /* Team grid */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+      justify-items: center;
+    }
+
+    /*Team member block */
+    .member-block {
+      position: relative;
+      width: 250px;
+      min-height: 320px; 
+      cursor: default;
+      border: 3px;
+      border-radius: 45px;
+      background-color: transparent;
+
+    }
+
+    /* Thumbnail */
+    .member-thumb {
+      width: 200px;
+      height: 200px;
+      border-radius: 25%;
+      object-fit: cover;
+      border: 3px solid var(--teal);
+      transition: opacity 0.35s ease, transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+      display: block;
+      margin: 25px auto 16px;
+    }
+
+    .member-block:hover .member-thumb,
+    .member-block:focus-within .member-thumb {
+      opacity: 0.6;
+      transform: scale(1.06);
+      border-color: var(--cyan);
+      box-shadow: 0 0 25px rgba(153, 243, 253, 0.634);
+    }
+
+    .member-name {
+      color: var(--cyan);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .member-role {
+      color: var(--seafoam);
+      font-size: 0.88rem;
+    }
+
+    .member-details {
+      
+      transform: translateX(-5%);
+      width: 240px;
+      background: rgba(0,18,25,0.95);
+      border: 1px solid var(--teal);
+      border-radius: 35px;
+      padding: 20px;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: opacity 0.35s ease, max-height 0.4s ease;
+      pointer-events: none;
+      z-index: 50;
+      text-align: left;
+    }
+
+    .member-block:hover .member-details,
+    .member-block:focus-within .member-details {
+      opacity: 1;
+      max-height: 400px;
+      pointer-events: auto;
+    }
+
+    .member-details h2 {
+       color: var(--cyan);
+        margin: 0 0 6px; 
+        font-size: 1rem;
+       }
+
+    .member-details .det-role {
+      color: var(--seafoam);
+      font-size: 0.82rem;
+      margin-bottom: 10px;
+      }
+
+    .member-details ul { 
+      padding-left: 16px;
+      font-size: 0.85rem; 
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 10px; 
+    }
+
+    .member-details ul li {
+       margin-bottom: 4px; 
+      }
+
+    .member-details .det-summary {
+       font-size: 0.83rem; 
+       color: rgba(255,255,255,0.7); 
+       font-style: italic; 
+      }
+
+    @media (max-width: 600px) {
+      .member-details { width: 200px; }
+    }
+
+  </style>
+</head>
+<body>
+  <main>
+
+    <nav class="navbar">
+      <div class="logo">
+        <a href="home.html"><img src="ALL_MEDIA/LIFE_UNDER_WATER.png" alt="Logo"></a>
+        <p><a href="home.html"><span style="color: #0289ff;">L</span>ife<span style="color: #0289ff;">B</span>elow<span style="color: #0289ff;">W</span>ater</a></p>
+      </div>
+      <ul class="nav-list">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="team.html" class="active">Team</a></li>
+        <li><a href="user_profile.html">Profile</a></li>
+        <li><a href="sitemap.html">Sitemap</a></li>
+      </ul>
+    </nav>
+
+    <section class="team-section">
+      <h1>Meet Our Team</h1>
+      <p>We are four students from the University of Westminster working together on this website as part of our Web Design & Development coursework. Hover over each portrait to learn more about each member's contribution to the project.</p>
+
+      <div class="team-grid">
+
+        <div class="member-block" role="group" tabindex="0" aria-label="Student 1 – hover or focus for details">
+          <img class="member-thumb" src="ALL_MEDIA/team1.png" alt="Portrait of Student 1">
+          <p class="member-name">Sashin Ferando</p>
+          <p class="member-role">Template & Home Page</p>
+
+          <div class="member-details" role="tooltip">
+            <h2>Sashin Ferando</h2>
+            <p class="det-role">Role: Template Lead & Home Page</p>
+            <ul>
+              <li>Shared HTML template & global CSS</li>
+              <li>Navigation bar implementation</li>
+              <li>Home Page design & content</li>
+              <li>Gallery Page</li>
+              <li>Content Page (ST-1)</li>
+            </ul>
+            <p class="det-summary">Directed the aesthetic of the site, defining the colour scheme, mutual structure and the system of cards on all the pages.</p>
+          </div>
+        </div>
+
+        <div class="member-block" role="group" tabindex="0" aria-label="Student 2 – hover or focus for details">
+          <img class="member-thumb" src="ALL_MEDIA/team2.png" alt="Portrait of Student 2">
+          <p class="member-name">Pabhasith Ranatunga</p>
+          <p class="member-role">Splash Screen & Quiz / AIS</p>
+
+          <div class="member-details" role="tooltip">
+            <h2>Pabhasith Ranatunga</h2>
+            <p class="det-role">Role: Interactivity & Animation</p>
+            <ul>
+              <li>Splash Screen with countdown</li>
+              <li>SDG Action Impact Simulator</li>
+              <li>Content Page (ST-2)</li>
+            </ul>
+            <p class="det-summary">Created the most dynamic pages of the site, with JavaScript enabled dynamic scoring, animated backgrounds, and the experience of the smooth splash entry.</p>
+          </div>
+        </div>
+
+        <div class="member-block" role="group" tabindex="0" aria-label="Student 3 – hover or focus for details">
+          <img class="member-thumb" src="ALL_MEDIA/team3.png" alt="Portrait of Student 3">
+          <p class="member-name">Lakmina Gayathra</p>
+          <p class="member-role">Feedback & Team Page</p>
+
+          <div class="member-details" role="tooltip">
+            <h2>Lakmina Gayathra</h2>
+            <p class="det-role">Role: Community & Forms</p>
+            <ul>
+              <li>Feedback & Programme Directory</li>
+              <li>Team Page</li>
+              <li>Content Page (ST-3)</li>
+            </ul>
+            <p class="det-summary">Concentrated on user facing interactions and community interaction, construction of the form of feedbacks with complete JavaScript validation and programme directory.</p>
+          </div>
+        </div>
+
+        <div class="member-block" role="group" tabindex="0" aria-label="Student 4 – hover or focus for details">
+          <img class="member-thumb" src="ALL_MEDIA/team4.png" alt="Portrait of Student 4">
+          <p class="member-name">Chanul Dilhara</p>
+          <p class="member-role">User Profile & Sitemap</p>
+
+          <div class="member-details" role="tooltip">
+            <h2>Chanul Dilhara</h2>
+            <p class="det-role">Role: Data & Navigation</p>
+            <ul>
+              <li>User Profile (progressive prompts)</li>
+              <li>SVG Sitemap</li>
+              <li>Content Page (ST-4)</li>
+            </ul>
+            <p class="det-summary">Created the most technically convoluted JavaScript feature the multi-step profile builder and the friendly, interactive sitemap of SVG.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-section">
+          <h3>LifeBelowWater</h3>
+          <p style="font-size:0.85rem;color:#9ca89a;">A University of Westminster web development project <br> UN SDG 14 – Life Below Water.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <a href="home.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="team.html">Team</a>
+          <a href="sitemap.html">Sitemap</a>
+        </div>
+        <div class="footer-section">
+          <h3>This Page</h3>
+          <a href="pageEditor_ST3.html" target="_blank" style="color: #0289ff;">Page Editor - Lakmina Gayathra (Student 3)</a>
+          <a href="validation_ST3.html" target="_blank" style="color: #0289ff;">Validation - Lakmina Gayathra (Student 3)</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 LifeBelowWater | University of Westminster Web Design Coursework</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

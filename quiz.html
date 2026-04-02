@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Below Water – Action Impact Simulator</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --deep-ocean: #001219;
+      --navy: #005f73;
+      --teal: #0a9396;
+      --cyan: #94d2bd;
+      --seafoam: #e9d8a6;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #001219 0%, #003049 100%);
+      color: var(--white);
+      line-height: 1.6;
+      transition: background-image 0.8s ease;
+    }
+
+    /* Hero intro section */
+    .ais-hero {
+      text-align: center;
+      padding: 60px 40px 30px;
+    }
+
+    .ais-hero p {
+      max-width: 700px;
+      margin: 0 auto;
+      color: rgba(255,255,255,0.85);
+      font-size: 1.05rem;
+    }
+
+    /* Action cards grid layout */
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      padding: 30px 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Individual action card style */
+    .action-card {
+      background: var(--navy);
+      border: 2px solid transparent;
+      border-radius: 14px;
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .action-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0,221,255,0.15);
+    }
+
+    /* Selected card state */
+    .action-card.selected {
+      border-color: var(--cyan);
+      background: rgba(10,147,150,0.3);
+      box-shadow: 0 0 20px rgba(148,210,189,0.4);
+    }
+
+    .action-card.selected::after {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      font-size: 1.3rem;
+      color: var(--cyan);
+      font-weight: bold;
+    }
+
+    .action-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+
+    .action-card h2 {
+      color: var(--cyan);
+      margin: 0 0 6px;
+      font-size: 1.1rem;
+    }
+
+    .action-card p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 10px;
+    }
+
+    .impact-badge {
+      display: inline-block;
+      background: rgba(148,210,189,0.2);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* Feedback panel */
+    .feedback-panel {
+      max-width: 700px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+
+    .feedback-box {
+      background: rgba(0,95,115,0.4);
+      border: 1px solid var(--teal);
+      border-radius: 14px;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .feedback-box h2 { color: var(--cyan); margin-bottom: 10px; }
+    #score-display {
+      font-size: 3rem;
+      font-weight: bold;
+      color: var(--seafoam);
+      margin: 10px 0;
+    }
+
+    #impact-label {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    #impact-message {
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    .reset-btn {
+      background: var(--teal);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .reset-btn:hover { 
+      background: var(--navy); 
+    }
+
+    /* Progress bar */
+    .progress-wrap {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      height: 12px;
+      margin: 15px 0;
+      overflow: hidden;
+    }
+
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--teal), var(--cyan));
+      border-radius: 20px;
+      transition: width 0.5s ease;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 1rem;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+
+  </style>
+
+</head>
+<body>
+  <main>
+
+    <nav class="navbar">
+      <div class="logo">
+        <a href="home.html"><img src="ALL_MEDIA/LIFE_UNDER_WATER.png" alt="Logo"></a>
+        <p><a href="home.html"><span style="color: #0289ff;">L</span>ife<span style="color: #0289ff;">B</span>elow<span style="color: #0289ff;">W</span>ater</a></p>
+      </div>
+      <ul class="nav-list">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="quiz.html" class="active">Quiz</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="user_profile.html">Profile</a></li>
+        <li><a href="sitemap.html">Sitemap</a></li>
+      </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="ais-hero">
+      <h1>SDG Action Impact Simulator</h1>
+      <p>Select the actions you already take -or are willing to take -to protect our oceans. Discover how your choices combine to create a meaningful impact for <strong>Life Below Water</strong>.</p>
+    </section>
+
+    <!-- Impact points guide:
+         Low:    0–7  points
+         Medium: 8–15 points
+         High:   16+  points -->
+
+    <!-- Action Cards -->
+    <div class="action-grid" id="action-grid" role="list">
+
+      <article class="action-card" tabindex="0" data-points="3" aria-label="Reduce single-use plastic – 3 impact points">
+        <img src="ALL_MEDIA/quiz1.webp" alt="Reusable water bottle next to beach">
+        <h2>Ditch Single-Use Plastic</h2>
+        <p>Swap plastic bags, bottles, and straws for reusable alternatives. Every item refused is one less piece that could reach the ocean.</p>
+        <span class="impact-badge">⚡ 3 Impact Points</span>
+      </article>
+
+      <article class="action-card" tabindex="0" data-points="4" aria-label="Choose sustainable seafood – 4 impact points">
+        <img src="ALL_MEDIA/quiz2.jpg" alt="Seafood label on a fish package">
+        <h2>Choose Sustainable Seafood</h2>
+        <p>Look for MSC-certified labels when buying fish or seafood. Supporting sustainable fisheries reduces pressure on overexploited stocks.</p>
+        <span class="impact-badge">⚡ 4 Impact Points</span>
+      </article>
+
+      <article class="action-card" tabindex="0" data-points="5" aria-label="Participate in a beach clean-up – 5 impact points">
+        <img src="ALL_MEDIA/quiz3.jpg" alt="Volunteers collecting plastic waste">
+        <h2>Join a Beach Clean-Up</h2>
+        <p>Participate in a local or organised beach or coastal clean-up. Removing waste before it enters the ocean protects marine wildlife directly.</p>
+        <span class="impact-badge">⚡ 5 Impact Points</span>
+      </article>
+
+      <article class="action-card" tabindex="0" data-points="2" aria-label="Reduce carbon footprint – 2 impact points">
+        <img src="ALL_MEDIA/quiz4.jpg" alt="person cycling solar panels visible in the background">
+        <h2>Reduce Your Carbon Footprint</h2>
+        <p>Walk, cycle, or use public transport. Lower CO₂ emissions slow ocean acidification and sea level rise that threaten marine ecosystems.</p>
+        <span class="impact-badge">⚡ 2 Impact Points</span>
+      </article>
+
+      <article class="action-card" tabindex="0" data-points="3" aria-label="Support marine charities – 3 impact points">
+        <img src="ALL_MEDIA/quiz5.png" alt="Donation being made to ocean conservation">
+        <h2>Support Ocean Conservation</h2>
+        <p>Donate to or share the work of organisations like Ocean Conservancy or WWF Oceans. Funding and awareness amplify conservation impact.</p>
+        <span class="impact-badge">⚡ 3 Impact Points</span>
+      </article>
+
+      <article class="action-card" tabindex="0" data-points="4" aria-label="Spread awareness – 4 impact points">
+        <img src="ALL_MEDIA/quiz6.png" alt="Student presenting ocean pollution">
+        <h2>Educate & Spread Awareness</h2>
+        <p>Share verified facts about ocean health in your school, social media, or community. Informed communities drive policy change and collective action.</p>
+        <span class="impact-badge">⚡ 4 Impact Points</span>
+      </article>
+
+      <article class="action-card" tabindex="0" data-points="3" aria-label="Reduce water pollution – 3 impact points">
+        <img src="ALL_MEDIA/quiz7.png" alt="Household chemicals">
+        <h2>Stop Household Pollution</h2>
+        <p>Dispose of chemicals, medicines, and oils responsibly. Never pour them down the drain -they travel through waterways into the ocean.</p>
+        <span class="impact-badge">⚡ 3 Impact Points</span>
+      </article>
+
+      <article class="action-card" tabindex="0" data-points="5" aria-label="Advocate for ocean policies – 5 impact points">
+        <img src="ALL_MEDIA/quiz8.png" alt="Ocean protection parliament">
+        <h2>Advocate for Ocean Policy</h2>
+        <p>Write to your local representative, sign petitions, or vote for candidates who support marine protection. Policy change has the largest systemic impact.</p>
+        <span class="impact-badge">⚡ 5 Impact Points</span>
+      </article>
+
+    </div>
+
+    <!-- Feedback Panel -->
+    <section class="feedback-panel" aria-live="polite" aria-label="Impact score feedback">
+      <p class="section-label">Your selected actions: <span id="selected-count">0</span></p>
+      <div class="progress-wrap" role="region" aria-label="Impact progress bar">
+        <div id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="29"></div>
+      </div>
+      <div class="feedback-box">
+        <h2>Your Ocean Impact Score</h2>
+        <div id="score-display" aria-live="polite">0</div>
+        <p id="impact-label" style="color: var(--cyan);">Start selecting actions above</p>
+        <p id="impact-message">Every action, no matter how small, contributes to a healthier ocean.</p>
+        <button class="reset-btn" id="reset-btn" aria-label="Reset all selections">Reset</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-section">
+          <h3>LifeBelowWater</h3>
+          <p style="font-size:0.85rem;color:#9ca89a;">A University of Westminster web development project aligned with UN SDG 14 – Life Below Water.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <a href="home.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="team.html">Team</a>
+          <a href="sitemap.html">Sitemap</a>
+        </div>
+        <div class="footer-section">
+          <h3>This Page</h3>
+          <a href="pageEditor_ST2.html" target="_blank" style="color: #0289ff;">Page Editor (Student 2)</a>
+          <a href="validation_ST2.html" target="_blank" style="color: #0289ff;">Validation (Student 2)</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 LifeBelowWater | University of Westminster Web Design Coursework</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Impact point thresholds:
+    // Low:    0–7  points
+    // Medium: 8–15 points
+    // High:   16+  points
+
+    const MAX_POINTS = 29; // sum of all card points
+    let totalPoints = 0;
+    let selectedCount = 0;
+
+    const scoreDisplay   = document.getElementById('score-display');
+    const impactLabel    = document.getElementById('impact-label');
+    const impactMessage  = document.getElementById('impact-message');
+    const selectedCountEl = document.getElementById('selected-count');
+    const progressBar    = document.getElementById('progress-bar');
+
+    // Background images for each impact level
+    const backgrounds = {
+      low:    'linear-gradient(180deg,#001219 0%,#001e26 100%)',
+      medium: 'linear-gradient(180deg,#001219 0%,#003049 100%)',
+      high:   'linear-gradient(180deg,#001219 0%,#005f73 100%)'
+    };
+
+    function updateFeedback() {
+      scoreDisplay.textContent = totalPoints;
+      selectedCountEl.textContent = selectedCount;
+
+      // Update progress bar
+      const pct = Math.round((totalPoints / MAX_POINTS) * 100);
+      progressBar.style.width = pct + '%';
+      progressBar.setAttribute('aria-valuenow', totalPoints);
+
+      // Determine impact level
+      let level, label, message, color;
+
+      if (totalPoints === 0) {
+        level   = null;
+        label   = 'Start selecting actions above';
+        message = 'Every action, no matter how small, contributes to a healthier ocean.';
+        color   = 'var(--cyan)';
+        document.body.style.background = backgrounds.low;
+      } else if (totalPoints <= 7) {
+        level   = 'low';
+        label   = '🌊 Low Impact';
+        message = 'Good start! Even small changes ripple outward. Try adding a few more actions to increase your ocean impact.';
+        color   = '#94d2bd';
+        document.body.style.background = backgrounds.low;
+      } else if (totalPoints <= 15) {
+        level   = 'medium';
+        label   = '🐠 Medium Impact';
+        message = 'Impressive commitment! You are making a real difference. Combining your efforts with community action multiplies the effect.';
+        color   = '#e9d8a6';
+        document.body.style.background = backgrounds.medium;
+      } else {
+        level   = 'high';
+        label   = '🌟 High Impact';
+        message = 'Outstanding! You are a true ocean champion. Your actions inspire others and contribute to the systemic change our oceans urgently need.';
+        color   = '#0a9396';
+        document.body.style.background = backgrounds.high;
+      }
+
+      impactLabel.textContent = label;
+      impactLabel.style.color = color;
+      impactMessage.textContent = message;
+    }
+
+    // Card selection logic
+    document.querySelectorAll('.action-card').forEach(card => {
+      // Click to select/deselect
+      card.addEventListener('click', function() {
+        const points = parseInt(this.dataset.points, 10);
+        const isSelected = this.classList.contains('selected');
+
+        if (isSelected) {
+          this.classList.remove('selected');
+          this.setAttribute('aria-pressed', 'false');
+          totalPoints  -= points;
+          selectedCount--;
+        } else {
+          this.classList.add('selected');
+          this.setAttribute('aria-pressed', 'true');
+          totalPoints  += points;
+          selectedCount++;
+        }
+        updateFeedback();
+      });
+
+      // Keyboard: Enter / Space to select
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+    });
+
+    // Reset button
+    document.getElementById('reset-btn').addEventListener('click', function() {
+      document.querySelectorAll('.action-card.selected').forEach(c => {
+        c.classList.remove('selected');
+        c.setAttribute('aria-pressed', 'false');
+      });
+      totalPoints   = 0;
+      selectedCount = 0;
+      updateFeedback();
+    });
+
+    // Initial state
+    updateFeedback();
+  </script>
+</body>
+</html>

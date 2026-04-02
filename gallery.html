@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Life Below Water - Gallery</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+  :root {
+      --deep-ocean: #001219;
+      --navy: #005f73;
+      --teal: #0a9396;
+      --cyan: #94d2bd;
+      --seafoam: #e9d8a6;
+      --white: #ffffff;
+      --transition: all 0.3s ease;
+  }
+
+  body {
+
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #001219 0%, #003049 100%);
+      color: var(--white);
+      line-height: 1.6;
+  }
+
+  /* Gallery Grid Layout */
+  .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 2rem 5%;
+  }
+
+  .gallery_header p{
+    text-align: center;
+    margin: 0 60px 0 60px;
+  }
+
+  /* Card Design */
+  .thumb-card {
+      background: var(--navy);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--teal);
+      transition: transform 0.3s ease;
+  }
+
+  .thumb-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  }
+
+  .thumb-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+  }
+
+  .thumb-info {
+      padding: 1.5rem;
+  }
+
+  .thumb-info h3 { margin: 0; color: var(--cyan); }
+  .thumb-info p { color: var(--seafoam); font-size: 0.9rem; margin-top: 5px; }
+
+  /* Modal Styling */
+  #gallery-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 18, 25, 0.9);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+  }
+
+  #gallery-modal.open { display: flex; }
+
+  .modal-inner {
+      background: var(--white);
+      color: var(--deep-ocean);
+      max-width: 800px;
+      width: 90%;
+      max-height: 90vh;
+      border-radius: 15px;
+      overflow-y: auto;
+      position: relative; /* Added to anchor the absolute close button */
+  }
+
+  /* Close button */
+  #modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 35px;
+      height: 35px;
+      background: var(--navy);
+      color: white;
+      border: 2px solid var(--cyan);
+      border-radius: 50%;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2100;
+      transition: var(--transition);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+
+  #modal-close:hover {
+      background: var(--teal);
+      transform: rotate(90deg) scale(1.1);
+  }
+
+  .modal-img { width: 100%; max-height: 400px; object-fit: cover; }
+
+  .modal-body { padding: 2rem; }
+
+  /* Font styles */
+  .font-default { font-family: 'Segoe UI', Tahoma, sans-serif; }
+  .font-serif { font-family: 'Georgia', serif; }
+  .font-mono { font-family: 'Courier New', monospace; }
+
+  .ctrl-btn {
+      background: var(--navy);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+  }
+
+  .ctrl-btn:hover { background: var(--teal); }
+
+</style>
+
+</head>
+<body>
+    <main>
+
+        <nav class="navbar">
+            <div class="logo">
+            <a href="home.html"><img src="ALL_MEDIA/LIFE_UNDER_WATER.png" alt="Logo"></a>
+            <p><a href="home.html"><span style="color: #0289ff;">L</span>ife<span style="color: #0289ff;">B</span>elow<span style="color: #0289ff;">W</span>ater</a></p>
+          </div>
+            <ul class="nav-list">
+                <li><a href="home.html">Home</a></li>               
+                <li><a href="gallery.html" class="active">Gallery</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="user_profile.html">Profile</a></li>
+                <li><a href="sitemap.html">Sitemap</a></li>
+            </ul>
+        </nav>
+
+        <div class="gallery_header">
+          <h1>Explore the World Beneath the Waves!</h1>
+          <p>The ocean is more than water - it is the foundation of all life on Earth. From the coral reefs of the tropics to the dark depths of the ocean floor, marine ecosystems support billions of people, regulate our climate, and harbour some of the most extraordinary biodiversity on the planet. Yet human activity is pushing these systems to their limits. Browse through our gallery to discover the key issues, wonders, and solutions connected to <strong>Life Below Water</strong> and find out what each of us can do to make a difference.</p>
+        </div>
+
+    <div class="container">
+
+      <section aria-labelledby="gallery-heading">
+        <h2 id="gallery-heading" class="section-title" style="margin-bottom:1.5rem;">Gallery</h2>
+
+        <div class="gallery-grid" id="gallery-grid" role="list">
+          </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="gallery-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-inner">
+      <button id="modal-close" aria-label="Close extended view">&times;</button>
+      <img id="modal-img" class="modal-img" src="#" alt="Gallery image">
+      <div class="modal-body">
+        <h2 id="modal-title" aria-live="polite">Gallery Item</h2>
+        <div id="modal-content-text" class="font-default"></div>
+
+        <div class="modal-controls" role="group" aria-label="Customise extended view appearance">
+          <h3>Customise this view:</h3>
+
+          <div class="control-row" role="group" aria-label="Change colour scheme">
+            <button class="ctrl-btn" data-color="default"  aria-label="Default colour scheme">Default</button>
+            <button class="ctrl-btn" data-color="dark"     aria-label="Dark colour scheme">Dark</button>
+            <button class="ctrl-btn" data-color="warm"     aria-label="Warm colour scheme">Warm</button>
+            <button class="ctrl-btn" data-color="cool"     aria-label="Cool colour scheme">Cool</button>
+          </div>
+
+          <div class="control-row" role="group" aria-label="Change font style">
+            <button class="ctrl-btn" data-font="default" aria-label="Default font">Sans-serif</button>
+            <button class="ctrl-btn" data-font="serif"   aria-label="Serif font">Serif</button>
+            <button class="ctrl-btn" data-font="mono"    aria-label="Monospace font">Mono</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+       
+        <div class="footer-section">
+          <h3>LifeBelowWater</h3>
+          <p style="font-size:0.85rem;color:#9ca89a;">A University of Westminster web development project <br> UN SDG 14 – Life Below Water.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <a href="home.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="team.html">Team</a>
+          <a href="sitemap.html">Sitemap</a>
+        </div>
+       
+        <div class="footer-section">
+          <h3>This Page</h3>
+         
+          <a href="pageEditor_ST1.html" target="_blank" style="color: #0289ff;"> Page Editor - Sashin Fernando (Student 1)</a>
+          <a href="validation_ST1.html" target="_blank" style="color: #0289ff;"> Validation - Sashin Fernando (Student 1)</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 LifeBelowWater | University of Westminster Web Design Coursework</p>
+      </div>
+    </div>
+  </footer>
+
+<script>
+    // Gallery data
+    const galleryData = [
+      {
+        id: 1,
+        title: "The Rainforests of the Sea",
+        label: "Coral Reefs",
+        thumb: "ALL_MEDIA/gallery1.jpg",
+        alt: "A vibrant coral reef teeming with colourful fish and marine life",
+        description: "<p>Coral reefs cover less than 1% of the ocean floor yet support around 25% of all marine species. Rising ocean temperatures cause coral bleaching, where reefs expel the algae they need to survive and turn white. Since 1950, the world has lost approximately 50% of its coral reefs. Without urgent action, up to 90% of reefs could disappear by 2050.</p>"
+      },
+      {
+        id: 2,
+        title: "Plastic Pollution - A Man Made Disaster",
+        label: "Plastic Pollution",
+        thumb: "ALL_MEDIA/gallery2.jpg",
+        alt: "Plastic waste floating on the surface of the ocean near a coastline",
+        description: "<p>Every minute, the equivalent of a rubbish truck's worth of plastic is dumped into the ocean. By 2050, there could be more plastic in the ocean than fish by weight. Microplastics have been found in the deepest ocean trenches, in fish tissue, and even in human blood. Reducing single-use plastic is one of the most direct actions individuals can take.</p>"
+      },
+      {
+        id: 3,
+        title: "Emptying the Ocean",
+        label: "Overfishing",
+        thumb: "ALL_MEDIA/gallery3.jpg",
+        alt: "A large fishing trawler hauling a massive net full of fish from the ocean",
+        description: "<p>Over 34% of global fish stocks are now harvested at biologically unsustainable levels -more than three times the figure recorded in 1974. Illegal, unreported, and unregulated (IUU) fishing costs the global economy up to $23 billion per year. Small-scale fishing communities in developing nations, including Sri Lanka, are hit hardest when fish populations collapse.</p>"
+      },
+      {
+        id: 4,
+        title: "Marine Protected Areas - Giving the Ocean Room to Breathe",
+        label: "Marine Protected Areas",
+        thumb: "ALL_MEDIA/gallery4.jpg",
+        alt: "An aerial view of a clear blue ocean area marked as a marine protected zone",
+        description: "<p>Marine Protected Areas (MPAs) are designated ocean zones where human activity is restricted to allow ecosystems to recover. Studies show fish populations inside MPAs can increase by over 600% compared to unprotected areas. Currently, only about 8% of the global ocean is protected -far below the internationally agreed target of 30% by 2030.</p>"
+      },
+      {
+        id: 5,
+        title: "Ocean Acidification - The Other CO₂ Problem",
+        label: "Ocean Acidification",
+        thumb: "ALL_MEDIA/gallery5.jpg",
+        alt: "A close-up of a bleached sea urchin shell affected by ocean acidification",
+        description: "<p>The ocean absorbs about 30% of all CO₂ released by human activity. As CO₂ dissolves in seawater, it forms carbonic acid, making the ocean more acidic. Since the Industrial Revolution, ocean acidity has increased by 26%. This dissolves the shells of oysters, crabs, and sea urchins, and disrupts the entire marine food chain from the smallest plankton upward.</p>"
+      },
+      {
+        id: 6,
+        title: "Sea Level Rise - Coastlines Under Threat",
+        label: "Sea Level Rise",
+        thumb: "ALL_MEDIA/gallery6.webp",
+        alt: "Coastal flooding with seawater overtaking a low-lying shoreline and structures",
+        description: "<p>Global sea levels have risen by about 20cm since 1900, and the rate is accelerating. Melting polar ice and warming oceans are the primary drivers. Low-lying coastal nations and small island states face the very real threat of being partially or fully submerged within this century. In Sri Lanka, coastal erosion is already displacing fishing communities and damaging coastal infrastructure.</p>"
+      },
+      {
+        id: 7,
+        title: "Mangroves - Nature's Coastal Guardians",
+        label: "Mangrove Forests",
+        thumb: "ALL_MEDIA/gallery7.jpg",
+        alt: "Dense mangrove tree roots submerged in shallow coastal water at low tide",
+        description: "<p>Mangrove forests line tropical and subtropical coastlines, acting as natural barriers against storm surges and erosion. They store up to four times more carbon per hectare than tropical rainforests, making them critical in the fight against climate change. Despite this, around 35% of the world's mangroves have been lost since 1980 due to coastal development, aquaculture, and deforestation.</p>"
+      },
+      {
+        id: 8,
+        title: "The Blue Economy - Prosperity Without Destruction",
+        label: "Blue Economy",
+        thumb: "ALL_MEDIA/gallery8.avif",
+        alt: "A fishing boat on calm ocean waters with wind turbines visible on the horizon",
+        description: "<p>The blue economy refers to the sustainable use of ocean resources for economic growth while preserving ocean health. It encompasses sustainable fisheries, renewable ocean energy, eco-tourism, and marine biotechnology. The global ocean economy is valued at over $1.5 trillion per year. Transitioning to a blue economy model means communities can continue to benefit from the ocean without depleting it for future generations.</p>"
+      }
+    ];
+
+    // Build the gallery
+    const galleryGrid = document.getElementById('gallery-grid');
+
+    galleryData.forEach(item => {
+      // Create the thumbnail card element
+      const card = document.createElement('article');
+      card.className    = 'thumb-card';
+      card.setAttribute('role', 'listitem');
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('aria-label', `View ${item.title} - click to expand`);
+      card.dataset.id   = item.id;
+
+      card.innerHTML = `
+        <img src="${item.thumb}" alt="${item.alt}" loading="lazy">
+        <div class="thumb-expand-icon" aria-hidden="true">⊕</div>
+        <div class="thumb-info">
+          <h3>${item.title}</h3>
+          <p>${item.label}</p>
+        </div>
+      `;
+
+      // Hover event (JS-handled as required by spec)
+      card.addEventListener('mouseenter', function() {
+        this.style.cursor = 'pointer';
+      });
+
+      // Click to expand modal
+      card.addEventListener('click', () => openModal(item));
+
+      // Keyboard: Enter or Space to open
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(item);
+        }
+      });
+
+      galleryGrid.appendChild(card);
+    });
+
+    // Modal logic
+    const modal      = document.getElementById('gallery-modal');
+    const modalImg   = document.getElementById('modal-img');
+    const modalTitle = document.getElementById('modal-title');
+    const modalText  = document.getElementById('modal-content-text');
+    const closeBtn   = document.getElementById('modal-close');
+
+    function openModal(item) {
+      modalImg.src           = item.thumb;
+      modalImg.alt           = item.alt;
+      modalTitle.textContent = item.title;
+      modalText.innerHTML    = item.description;
+
+      // Reset customisations
+      modalText.className = 'font-default';
+      document.querySelector('.modal-inner').style.background    = '#ffffff';
+      document.querySelector('.modal-inner').style.color         = '';
+
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus(); // focus the close button
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Close via button
+    closeBtn.addEventListener('click', closeModal);
+
+    // Close via click outside modal
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Close via Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // User customisation: colour scheme
+    document.querySelectorAll('[data-color]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const scheme = this.dataset.color;
+        const inner  = document.querySelector('.modal-inner');
+
+        // Update active state
+        document.querySelectorAll('[data-color]').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        // Apply colour scheme using JavaScript
+        if (scheme === 'dark') {
+          inner.style.background = '#1b231c';
+          inner.style.color      = '#f8f9f5';
+          modalTitle.style.color = '#f4a820';
+          modalText.style.color  = '#d5d8ce';
+        } else if (scheme === 'warm') {
+          inner.style.background = '#fdf6ec';
+          inner.style.color      = '#3d2e10';
+          modalTitle.style.color = '#b85e00';
+          modalText.style.color  = '#5a4020';
+        } else if (scheme === 'cool') {
+          inner.style.background = '#eaf4f8';
+          inner.style.color      = '#0d2c38';
+          modalTitle.style.color = '#1678a0';
+          modalText.style.color  = '#1d4058';
+        } else {
+          // Default
+          inner.style.background = '#ffffff';
+          inner.style.color      = '';
+          modalTitle.style.color = '';
+          modalText.style.color  = '';
+        }
+      });
+    });
+
+    // User customisation: font style
+    document.querySelectorAll('[data-font]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const font = this.dataset.font;
+
+        // Update active state
+        document.querySelectorAll('[data-font]').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        // Apply font class using JavaScript
+        modalText.className = 'font-' + font;
+      });
+    });
+
+  </script>
+
+</body>
+</html>

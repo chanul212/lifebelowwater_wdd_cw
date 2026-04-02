@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Below Water - Home</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+  :root {
+    --deep-ocean: #001219;
+    --navy: #005f73;
+    --teal: #0a9396;
+    --cyan: #94d2bd;
+    --seafoam: #e9d8a6;
+    --white: #ffffff;
+    --glass: rgba(255, 255, 255, 0.1);
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--deep-ocean);
+    color: var(--white);
+    line-height: 1.6;
+    scroll-margin-top: 80px;
+  }
+
+  /* --- Background video --- */
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+    background: #000;
+  }
+
+  #bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 57, 80, 0.7); /* Darkens video for text readability */
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: var(--cyan);
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    line-height: 70px;
+  }
+
+  .hero-content p {
+    max-width: 1000px;
+    margin: 40px auto 40px auto;
+    font-size: 1.5rem;
+    color: var(--white);
+  }
+
+  .card_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 40px 20px;
+  }
+
+  .card {
+    background: var(--navy);
+    border-radius: 15px;
+    overflow: hidden;
+    width: 350px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 221, 255, 0.2);
+  }
+
+  .card_img {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .card_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .card h2{
+    color: var(--teal);
+    margin-top: 0;
+  }
+
+  .card:hover .card_img img {
+    transform: scale(1.1);
+  }
+
+  .card_content {
+    padding: 25px;
+  }
+
+  .card_content h2.title {
+    color: var(--cyan);
+    margin-top: 0;
+    font-size: 1.3rem;
+    text-shadow: black 0.1rem 0.2rem 0.3rem;
+  }
+
+  .card_content ul {
+    padding-left: 20px;
+    font-size: 0.9rem;
+  }
+  
+  .card_content li {
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
+  .content {
+    padding: 60px 20px;
+    text-align: center;
+    background: #00212e;
+  }
+
+  .content h2 {
+    font-size: 2.5rem;
+    color: var(--cyan);
+  }
+
+  .content_cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 40px auto 0;
+  }
+
+  .card_co {
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    text-decoration: none;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .card_co:hover {
+    transform: scale(1.05);
+    border-color: var(--cyan);
+    box-shadow: 0 0 20px var(--teal);
+  }
+
+  .card_co .card_content {
+    background: linear-gradient(transparent, rgba(0, 18, 25, 0.9));
+    width: 100%;
+    padding: 20px;
+    text-align: left;
+  }
+
+  @media (max-width: 600px) {
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+  }
+
+</style>
+</head>
+
+<body>
+    <main>
+      <nav class="navbar">
+          <div class="logo">
+            <a href="home.html"><img src="ALL_MEDIA/LIFE_UNDER_WATER.png" alt="Logo"></a>
+            <p><a href="home.html"><span style="color: #0289ff;">L</span>ife<span style="color: #0289ff;">B</span>elow<span style="color: #0289ff;">W</span>ater</a></p>
+          </div>
+          <ul class="nav-list">
+              <li><a href="home.html" class="active">Home</a></li>
+              <li><a href="gallery.html">Gallery</a></li>
+              <li><a href="quiz.html">Quiz</a></li>
+              <li><a href="feedback.html">Feedback</a></li>
+              <li><a href="team.html">Team</a></li>
+              <li><a href="user_profile.html">Profile</a></li>
+              <li><a href="sitemap.html">Sitemap</a></li>
+          </ul>
+      </nav>
+
+      <section class="hero">
+        <video autoplay muted loop id="bg-video">
+            <source src="ALL_MEDIA/LifeBelowWater_video.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h1>"Restoring the Balance of <br> Our Blue Ecosystems"</h1>
+          <p>The ocean covers over 70% of our planet, produces half the oxygen we breathe, 
+            and supports the livelihoods of over 3 billion people.  Yet every day, 
+            human activity pushes marine ecosystems closer to collapse. <strong> Life Below Water,</strong> is our collective commitment to protect, restore, and sustainably use the 
+            world's oceans, seas, and marine resources.</p>
+        </div>
+      </section>
+
+       <section class="card_container">
+
+        <div class="card">
+          <div class="card_img">
+          <img src="ALL_MEDIA/home1.jpg" alt="The Ocean Crisis">
+          </div>
+          <div class="card_content">
+          <h2>The Ocean Crisis</h2>
+          <p>Over 8 million tonnes of plastic enter the ocean every year, and a third of global fish stocks are being harvested unsustainably. Ocean acidification has risen 26% since the Industrial Revolution, destroying coral reefs and marine habitats. The ocean is running out of time.</p>
+          <p>3 Outcomes If We Act Now:</p>
+          <ul>
+            <li>Coral reefs and marine species could stabilise and recover</li>
+            <li>Coastal communities could regain reliable food from healthy fisheries</li>
+            <li>Ocean carbon absorption could be restored, slowing climate change</li>
+          </ul>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card_img">
+          <img src="ALL_MEDIA/home2.png" alt="Who Is Most Affected?">
+          </div>
+          <div class="card_content">
+          <h2>Who Is Most Affected?</h2>
+          <p>Over 3 billion people rely on the ocean for food and income. In Sri Lanka, more than 2.7 million people depend on fisheries to survive. When fish stocks collapse and coastlines erode, it is everyday families and local communities who suffer most, not large corporations.</p>
+          <p>3 Actions You Can Take:</p>
+          <ul>
+            <li>Choose sustainably sourced, MSC-certified seafood</li>
+            <li>Join a local beach or ocean clean-up</li>
+            <li>Reduce your single-use plastic consumption daily</li>
+          </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card_img">
+          <img src="ALL_MEDIA/home3.png" alt="Solutions That Work">
+          </div>
+          <div class="card_content">
+          <h2>Solutions That Work</h2>
+          <p>Marine protected areas now cover 8% of the world's oceans, giving ecosystems room to recover. Nations like Palau and Costa Rica have proven that strong ocean policies lead to real ecological recovery. Science, innovation, and community action are already reversing decades of damage.</p>
+          <p>3 Actions You Can Take:</p>
+          <ul>
+            <li>Support marine conservation organisations like Ocean Conservancy</li>
+            <li>Advocate for stronger ocean protection policies locally</li>
+            <li>Spread verified ocean health awareness in your school or community</li>
+          </ul>
+          </div>
+        </div>
+        </section>
+
+        <section class="content">
+          <h2>Explore Our Content</h2>
+          <p>Dive deeper into each topic crafted by our team members.</p>
+
+          <div class="content_cards">
+
+            <a href="content_st1.html" class="card_co" style="background-image: url('ALL_MEDIA/home4.webp');">
+              <div class="card_content">
+                 <h2 class="title">Ocean Crisis</h2>
+                 <p class="subtitle">By Sashin Fernando</p>
+              </div>
+            </a>
+
+            <a href="content_st2.html" class="card_co" style="background-image: url('ALL_MEDIA/home5.webp');">
+              <div class="card_content">
+                 <h2 class="title">Marine Biodiversity & <br> Coral Reefs</h2>
+                 <p class="subtitle">By Pabhasith Ranathunga</p>
+              </div>
+            </a>
+
+            <a href="content_st3.html" class="card_co" style="background-image: url('ALL_MEDIA/home6.png');">
+              <div class="card_content">
+                 <h2 class="title">Plastic Pollution & <br> Ocean Waste</h2>
+                 <p class="subtitle">By Lakmina Gayathra</p>
+              </div>
+            </a>
+
+            <a href="content_st4.html" class="card_co" style="background-image: url('ALL_MEDIA/home7.jpg');">
+              <div class="card_content">
+                 <h2 class="title">Sustainable Fisheries & <br>Blue Economy</h2>
+                 <p class="subtitle">By Chanul Dilhara</p>
+              </div>
+            </a>
+
+          </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+    <div class="container">
+      <div class="footer-inner">
+       
+        <div class="footer-section">
+          <h3>LifeBelowWater</h3>
+          <p style="font-size:0.85rem;color:#9ca89a;">A University of Westminster web development project <br> UN SDG 14 - Life Below Water.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <a href="home.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="team.html">Team</a>
+          <a href="sitemap.html">Sitemap</a>
+        </div>
+       
+        <div class="footer-section">
+          <h3>This Page</h3>
+         
+          <a href="pageEditor_ST1.html" target="_blank" style="color: #0289ff;"> Page Editor - Sashin Fernando (Student 1)</a>
+          <a href="validation_ST1.html" target="_blank" style="color: #0289ff;"> Validation - Sashin Fernando (Student 1)</a>
+        </div>
+      </div>
+     
+      <div class="footer-bottom">
+        <p>&copy; 2026 LifeBelowWater | University of Westminster Web Design Coursework</p>
+      </div>
+    </div>
+  </footer>
+    
+</body>
+</html>

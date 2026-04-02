@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Below Water – Feedback & Programmes</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --deep-ocean: #001219;
+      --navy: #005f73;
+      --teal: #0a9396;
+      --cyan: #94d2bd;
+      --seafoam: #e9d8a6;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #001219 0%, #003049 100%);
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    .page-section {
+      padding: 60px 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-intro {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-intro p {
+      color: rgba(255,255,255,0.8);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .controls {
+      margin-bottom: 50px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .controls button {
+      display: flex;
+      align-items: center;
+      gap: 8px; 
+      padding: 8px 10px;
+      cursor: pointer;
+      border: 1px solid #005f73;
+      background-color: #005f73;
+      color: #ffffff;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 400;
+      transition: all 0.2s ease;
+    }
+
+    .controls button svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .controls button:hover {
+      background-color: #eef2ff;
+      border-color: #eef2ff;
+      color: #001219;
+    }
+
+    .controls button.active {
+      background-color: #2cc6ed;
+      color: white;
+      border-color: #2cc6ed;
+    }
+
+/* --- List Mode  --- */
+    .list-mode .programme-scroll {
+      grid-template-columns: 1fr;
+    }
+
+    .list-mode .prog-card {
+      flex-direction: row;
+    }
+
+    .list-mode .prog-card img {
+      width: 250px;
+      height: 100%;
+      min-height: 150px;
+    }
+
+    /* --- Grid Mode --- */
+    .card-mode .programme-scroll{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 50px;
+    }
+
+    .card-mode .prog-card {
+      flex-direction: column;
+      grid-template-columns: 1fr; 
+      margin-bottom: 0; 
+      text-align: center;
+    }
+
+    .card-mode .prog-card img {
+      width: 100%;
+      height: 200px;
+    }
+
+    /* Programme directory toolbar */
+    .dir-toolbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1px;
+    }
+
+    .dir-toolbar select {
+      background: var(--navy);
+      color: var(--white);
+      border: 1px solid var(--navy);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .programme-scroll {
+      max-height: 520px;
+      overflow-y: auto;
+      padding-right: 8px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--teal) transparent;
+    }
+
+    .programme-scroll::-webkit-scrollbar {
+       width: 6px; 
+      }
+
+    .programme-scroll::-webkit-scrollbar-track {
+       background: transparent; 
+      }
+
+    .programme-scroll::-webkit-scrollbar-thumb { 
+      background: var(--teal); 
+      border-radius: 3px; 
+    }
+
+    /*  card design */
+    .prog-card {
+      background: var(--navy);
+      border-radius: 20px;
+      display: grid;
+      grid-template-columns: 250px 1fr auto;
+      gap: 20px;
+      align-items: center;
+      padding: 17px;
+      margin-bottom: 16px;
+      border: 1px solid transparent;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .prog-card:hover {
+      border-color: var(--teal);
+      transform: translateX(6px);
+    }
+
+    .prog-card img {
+      width: 120px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    .prog-card h3 {
+      color: var(--cyan);
+      margin: 0 0 6px;
+      font-size: 1.1rem; 
+    }
+
+    .prog-card p { 
+      font-size: 0.9rem; 
+      color: rgba(255,255,255,0.8); 
+      margin: 0; 
+    }
+
+    .prog-btn {
+      background: var(--teal);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .prog-btn:hover {
+      background: #005f73;
+      transform: scale(1.05);
+    }
+
+    /* Ratings section */
+    .ratings-section {
+      background: rgba(0,95,115,0.2);
+      border-top: 1px solid var(--teal);
+      padding: 60px 5%;
+    }
+
+    .ratings-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .overall-rating {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .rating-num {
+      font-size: 4rem;
+      font-weight: bold;
+      color: var(--seafoam);
+      line-height: 1;
+    }
+
+    .rating-meta p { 
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+    }
+
+    .rating-meta strong { 
+      color: var(--cyan); 
+      font-size: 1.2rem; 
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .review-card {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid rgba(10,147,150,0.3);
+    }
+
+    .review-card h3 {
+      color: var(--cyan);
+      margin: 0 0 8px;
+    }
+
+    .review-card p { 
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.8);
+      }
+
+    .review-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .review-score {
+      color: var(--seafoam);
+      font-weight: bold; 
+    }
+
+    .see-more { 
+      color: var(--teal);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .see-more:hover { 
+      color: var(--cyan);
+    }
+
+    /* Form */
+    .form-section {
+      padding: 60px 5%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    fieldset {
+      border: 1px solid var(--teal);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    legend {
+      color: var(--cyan);
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 0 10px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--cyan);
+      font-size: 0.92rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: rgba(0,95,115,0.3);
+      border: 1px solid var(--teal);
+      color: var(--white);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--cyan);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+       color: rgba(255,255,255,0.4);
+      }
+
+    .form-group select option {
+      background: var(--navy);
+    }
+
+    #char-counter {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      text-align: right;
+      margin-top: 4px;
+    }
+
+    .field-error {
+       color: #ff6b6b; 
+       font-size: 0.82rem; 
+       margin-top: 4px; 
+       display: none; 
+      }
+
+    .submit-btn {
+      background: var(--teal);
+      color: white;
+      border: none;
+      padding: 14px 36px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background: var(--navy);
+    }
+
+    #confirm-msg {
+      display: none;
+      background: rgba(10,147,150,0.3);
+      border: 1px solid var(--teal);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      color: var(--cyan);
+      font-size: 1.1rem;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 700px) {
+      .prog-card { grid-template-columns: 1fr; }
+      .prog-card img { width: 100%; height: 160px; }
+    }
+
+  </style>
+  
+</head>
+<body>
+  <main>
+
+    <nav class="navbar">
+      <div class="logo">
+        <a href="home.html"><img src="ALL_MEDIA/LIFE_UNDER_WATER.png" alt="Logo"></a>
+        <p><a href="home.html"><span style="color: #0289ff;">L</span>ife<span style="color: #0289ff;">B</span>elow<span style="color: #0289ff;">W</span>ater</a></p>
+      </div>
+      <ul class="nav-list">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="feedback.html" class="active">Feedback</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="user_profile.html">Profile</a></li>
+        <li><a href="sitemap.html">Sitemap</a></li>
+      </ul>
+    </nav>
+
+    <!-- Directory -->
+    <section class="page-section">
+      <div class="section-intro">
+        <h1>Ocean Programmes & Opportunities</h1>
+        <p>Explore volunteering, campaigns, and initiatives you can join to make a real difference for our oceans and marine ecosystems.</p>
+      </div>
+
+      <div class="dir-toolbar">
+        <select aria-label="Sort programmes">
+          <option>Most Popular</option>
+          <option>Student Friendly</option>
+          <option>Nearest</option>
+          <option>Most Impactful</option>
+        </select>
+      </div>
+
+
+      <!-- list button -->
+      <div class="controls">
+    <button class="active" onclick="setView('list-mode', this)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+      </svg>
+      List
+    </button>
+    <button onclick="setView('card-mode', this)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-fill" viewBox="0 0 16 16">
+      <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5z"/>
+      </svg>
+      Grid
+      </button>
+    </div>
+
+    <h2 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Programme Listings</h2>
+    <div id="listing-container" class="list-mode">
+      <div class="programme-scroll" role="list">
+
+        <article class="prog-card">
+          <img src="ALL_MEDIA/feedback1.png" alt="Volunteers cleaning a beach covered in plastic waste">
+          <div>
+            <h3>Ocean Conservancy Clean-Up Drive</h3>
+            <p>Join the world's largest ocean clean-up effort. Volunteer locally or participate in the International Coastal Cleanup to remove marine debris before it enters the sea.</p>
+          </div>
+          <button class="prog-btn">Get Involved</button>
+        </article>
+
+        <article class="prog-card">
+          <img src="ALL_MEDIA/feedback2.png" alt="A diver surveying a healthy coral reef in a marine protected area">
+          <div>
+            <h3>Marine Protected Area Monitoring</h3>
+            <p>Assist researchers and conservation agencies in monitoring ocean biodiversity inside MPAs. Suitable for students with an interest in marine biology or ecology.</p>
+          </div>
+          <button class="prog-btn">Learn More</button>
+        </article>
+
+        <article class="prog-card">
+          <img src="ALL_MEDIA/feedback3.png" alt="Students planting mangrove saplings in shallow coastal waters">
+          <div>
+            <h3>Mangrove Restoration Project</h3>
+            <p>Take part in community-led mangrove replanting along Sri Lanka's coastal belt. Mangroves protect coastlines, store carbon, and provide vital habitats for juvenile fish.</p>
+          </div>
+          <button class="prog-btn">Join Now</button>
+        </article>
+
+        <article class="prog-card">
+          <img src="ALL_MEDIA/feedback4.png" alt="A panel of young people discussing ocean sustainability at a conference">
+          <div>
+            <h3>SDG Youth Advocacy Programme</h3>
+            <p>Develop your voice as a young advocate for ocean policy. Attend workshops, produce campaigns, and present recommendations to local government and community groups.</p>
+          </div>
+          <button class="prog-btn">Apply</button>
+        </article>
+
+        <article class="prog-card">
+          <img src="ALL_MEDIA/feedback5.png" alt="A scientist examining water samples in a marine laboratory">
+          <div>
+            <h3>Citizen Science: Ocean Data Collection</h3>
+            <p>Contribute to global ocean health databases by recording local observations water temperature, plastic sightings, and marine species through guided mobile apps.</p>
+          </div>
+          <button class="prog-btn">Learn More</button>
+        </article>
+
+      </div><!-- end programme-scroll -->
+    </div><!-- end listing-container -->
+
+    </section>
+
+    <!-- Ratings Section -->
+    <div class="ratings-section">
+      <div class="ratings-inner">
+        <h2 style="text-align:center; margin-bottom:30px;">What Participants Say</h2>
+
+        <div class="overall-rating">
+          <div class="rating-num">9.1</div>
+          <div class="rating-meta">
+            <strong>Exceptional</strong>
+            <p>Based on 214 programme reviews</p>
+            <p>⭐⭐⭐⭐⭐</p>
+          </div>
+        </div>
+
+        <div class="reviews-grid">
+          <div class="review-card">
+            <h3>Truly life-changing experience</h3>
+            <p>Taking part in the mangrove planting programme opened my eyes to how impactful small, local actions can be for global ocean health. Highly recommend to any student.</p>
+            <a href="#" class="see-more">See more</a>
+            <div class="review-meta">
+              <span>Vihanga Silva. — 12 Jan 2026</span>
+              <span class="review-score">10/10</span>
+            </div>
+          </div>
+          <div class="review-card">
+            <h3>Excellent community initiative</h3>
+            <p>The beach clean-up programme was brilliantly organised. We collected over 40kg of waste in a single afternoon. The team was welcoming and the impact was immediately visible.</p>
+            <a href="#" class="see-more">See more</a>
+            <div class="review-meta">
+              <span>Roshan Kulathunge. — 5 Feb 2026</span>
+              <span class="review-score">9/10</span>
+            </div>
+          </div>
+          <div class="review-card">
+            <h3>Great for building real skills</h3>
+            <p>The citizen science programme taught me data collection and analysis skills while contributing to something meaningful. A perfect blend of education and environmental action.</p>
+            <a href="#" class="see-more">See more</a>
+            <div class="review-meta">
+              <span>Shalani Disanayake. — 18 Feb 2026</span>
+              <span class="review-score">9/10</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feedback Form -->
+    <section class="form-section">
+      <div class="section-intro">
+        <h2>Submit Your Feedback</h2>
+        <p>Tell us about your experience with an ocean programme, or share your thoughts on what more can be done to protect our oceans.</p>
+      </div>
+
+      <form id="feedback-form" novalidate>
+        <fieldset>
+          <legend>Personal Details</legend>
+
+          <div class="form-group">
+            <label for="full-name">Full Name *</label>
+            <input type="text" id="full-name" name="full_name" placeholder="e.g. Jane Smith">
+            <p class="field-error" id="err-name">Please enter your full name.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com">
+            <p class="field-error" id="err-email">Please enter a valid email address.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="tel">Telephone Number</label>
+            <input type="tel" id="tel" name="tel" placeholder="+44 7000 000000">
+          </div>
+
+          <div class="form-group">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="3" placeholder="Your address (optional)"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Feedback Details</legend>
+
+          <div class="form-group">
+            <label for="programme">Programme of Interest</label>
+            <select id="programme" name="programme">
+              <option value="">— Select a programme —</option>
+              <option>Ocean Conservancy Clean-Up Drive</option>
+              <option>Marine Protected Area Monitoring</option>
+              <option>Mangrove Restoration Project</option>
+              <option>SDG Youth Advocacy Programme</option>
+              <option>Citizen Science: Ocean Data Collection</option>
+              <option>Other / General Feedback</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="date-exp">Date of Experience</label>
+            <input type="date" id="date-exp" name="date_exp">
+          </div>
+
+          <div class="form-group">
+            <label for="datetime-pref">Preferred Contact Time</label>
+            <input type="datetime-local" id="datetime-pref" name="datetime_pref">
+          </div>
+
+          <div class="form-group">
+            <label for="ocean-topics">Topics You Care About (hold Ctrl to select multiple)</label>
+            <select id="ocean-topics" name="ocean_topics" multiple size="4">
+              <option>Coral Reef Protection</option>
+              <option>Plastic Pollution</option>
+              <option>Sustainable Fisheries</option>
+              <option>Ocean Acidification</option>
+              <option>Sea Level Rise</option>
+              <option>Marine Biodiversity</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Your Message * <span style="color:rgba(255,255,255,0.4); font-size:0.8rem">(max 500 characters)</span></label>
+            <textarea id="message" name="message" rows="5" maxlength="500" placeholder="Share your experience, suggestions, or comments..."></textarea>
+            <p id="char-counter">500 characters remaining</p>
+            <p class="field-error" id="err-message">Please write a message before submitting.</p>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="submit-btn">Send Feedback</button>
+
+        <div id="confirm-msg" role="alert">
+          ✅ Thank you for your feedback! We appreciate your contribution to protecting our oceans.
+        </div>
+
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-section">
+          <h3>LifeBelowWater</h3>
+          <p style="font-size:0.85rem;color:#9ca89a;">A University of Westminster web development project <br> UN SDG 14 – Life Below Water.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <a href="home.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="team.html">Team</a>
+          <a href="sitemap.html">Sitemap</a>
+        </div>
+        <div class="footer-section">
+          <h3>This Page</h3>
+          <a href="pageEditor_ST3.html" target="_blank" style="color: #0289ff;">Page Editor - Lakmina Gayathra (Student 3)</a>
+          <a href="validation_ST3.html" target="_blank" style="color: #0289ff;">Validation - Lakmina Gayathra (Student 3)</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 LifeBelowWater | University of Westminster Web Design Coursework</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+
+    function setView(mode, clickedButton) {
+      // 1. Change the layout mode on the container
+      const container = document.getElementById('listing-container');
+      container.className = mode;
+
+      // 2. Remove the 'active' class from all buttons
+      const buttons = document.querySelectorAll('.controls button');
+      buttons.forEach(button => {
+        button.classList.remove('active');
+      });
+
+      // 3. Add the 'active' class to the button that was just clicked
+      clickedButton.classList.add('active');
+    }
+
+    // Live character counter
+    const msgField    = document.getElementById('message');
+    const charCounter = document.getElementById('char-counter');
+
+    msgField.addEventListener('input', function() {
+      const remaining = 500 - this.value.length;
+      charCounter.textContent = remaining + ' characters remaining';
+      charCounter.style.color = remaining < 50 ? '#ff6b6b' : 'rgba(255,255,255,0.5)';
+    });
+
+    // Form validation & submission
+    document.getElementById('feedback-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      let valid = true;
+
+      // Validate full name
+      const nameVal = document.getElementById('full-name').value.trim();
+      const errName = document.getElementById('err-name');
+      if (!nameVal) {
+        errName.style.display = 'block';
+        document.getElementById('full-name').style.borderColor = '#ff6b6b';
+        valid = false;
+      } else {
+        errName.style.display = 'none';
+        document.getElementById('full-name').style.borderColor = '';
+      }
+
+      // Validate email
+      const emailVal = document.getElementById('email').value.trim();
+      const errEmail = document.getElementById('err-email');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailVal)) {
+        errEmail.style.display = 'block';
+        document.getElementById('email').style.borderColor = '#ff6b6b';
+        valid = false;
+      } else {
+        errEmail.style.display = 'none';
+        document.getElementById('email').style.borderColor = '';
+      }
+
+      // Validate message
+      const msgVal = document.getElementById('message').value.trim();
+      const errMsg = document.getElementById('err-message');
+      if (!msgVal) {
+        errMsg.style.display = 'block';
+        document.getElementById('message').style.borderColor = '#ff6b6b';
+        valid = false;
+      } else {
+        errMsg.style.display = 'none';
+        document.getElementById('message').style.borderColor = '';
+      }
+
+      // Show confirmation
+      if (valid) {
+        document.getElementById('confirm-msg').style.display = 'block';
+        this.reset();
+        charCounter.textContent = '500 characters remaining';
+        charCounter.style.color = '';
+        document.getElementById('confirm-msg').scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  </script>
+</body>
+</html>

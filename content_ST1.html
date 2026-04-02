@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Below Water – The Ocean Crisis</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    
+    :root {
+      --deep-ocean: #001219;
+      --navy: #005f73;
+      --teal: #0a9396;
+      --cyan: #94d2bd;
+      --seafoam: #e9d8a6;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #001219 0%, #003049 100%);
+      color: var(--white);
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    /* Content layout */
+    .content-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    @media (max-width: 768px) {
+      .content-layout { grid-template-columns: 1fr; }
+      .side-nav { display: none; }
+    }
+
+    /* Side navigation */
+    .side-nav {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      background: rgba(0,95,115,0.2);
+      border: 1px solid var(--teal);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .side-nav h3 { 
+      color: var(--cyan);
+      margin: 0 0 14px;
+      font-size: 0.92rem;
+      text-transform: uppercase; 
+      letter-spacing: 0.05em; 
+    }
+    
+    .side-nav a {
+      display: block;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.88rem;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(10,147,150,0.2);
+      transition: color 0.2s;
+    }
+
+    .side-nav a:hover {
+      color: var(--cyan);
+      }
+
+    .side-nav a:last-child {
+       border-bottom: none; 
+      }
+
+    /* Article content */
+    .article h1 { 
+      color: var(--cyan); 
+      font-size: 2.4rem; 
+      margin-bottom: 10px; 
+      margin-top: 0;
+    }
+
+    .article .byline { 
+      color: rgba(255,255,255,0.5); 
+      font-size: 0.88rem; 
+      margin-bottom: 40px; 
+    }
+    
+    .article h2 { 
+      color: var(--seafoam); 
+      font-size: 1.5rem; 
+      margin: 40px 0 20px 0; 
+      border-left: 4px solid var(--teal); 
+      padding-left: 15px;
+      line-height: 1.2;
+      text-align: left;
+    }
+
+    .article h3 { 
+      color: var(--cyan); 
+      font-size: 1.15rem; 
+      margin: 24px 0 10px; 
+    }
+    
+    .article p { 
+      color: rgba(255,255,255,0.85); 
+      margin-bottom: 18px; 
+      max-width: 760px; 
+    }
+
+    .article ul { 
+      padding-left: 22px; 
+      margin-bottom: 18px; 
+    }
+
+    .article ul li { 
+      color: rgba(255,255,255,0.8); 
+      margin-bottom: 8px; 
+    }
+
+    .article img {
+      width: 100%;
+      max-width: 700px;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin: 20px 0;
+      border: 1px solid rgba(10,147,150,0.4);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      display: block;
+    }
+
+    .img-caption {
+       font-size: 0.82rem; 
+       color: rgba(255,255,255,0.45); 
+       margin-top: -14px;
+       margin-bottom: 20px; 
+      }
+
+    .stat-box {
+      background: rgba(0,95,115,0.3);
+      border: 1px solid var(--teal);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 24px 0;
+      max-width: 700px;
+    }
+
+    .stat-box .stat-num { 
+      font-size: 2.2rem; 
+      font-weight: bold; 
+      color: var(--seafoam);
+     }
+
+    .stat-box p { 
+      margin: 0; 
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.8); 
+    }
+
+    /* top button */
+    .go-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--teal);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 46px;
+      height: 46px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      transition: background 0.3s ease;
+      z-index: 100;
+    }
+
+    .go-top:hover {
+       background: var(--navy); 
+      }
+
+</style>
+</head>
+<body>
+  <main id="top">
+
+    <nav class="navbar">
+      <div class="logo">
+        <a href="home.html"><img src="ALL_MEDIA/LIFE_UNDER_WATER.png" alt="Logo"></a>
+        <p><a href="home.html"><span style="color: #0289ff;">L</span>ife<span style="color: #0289ff;">B</span>elow<span style="color: #0289ff;">W</span>ater</a></p>
+      </div>
+      <ul class="nav-list">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="user_profile.html">Profile</a></li>
+        <li><a href="sitemap.html">Sitemap</a></li>
+      </ul>
+    </nav>
+
+    <div class="content-layout">
+
+      <nav class="side-nav" aria-label="Page sections">
+        <h3>On This Page</h3>
+        <a href="#intro">Introduction</a>
+        <a href="#pollution">Plastic Pollution</a>
+        <a href="#acidification">Ocean Acidification</a>
+        <a href="#overfishing">Overfishing</a>
+        <a href="#sea-level">Sea Level Rise</a>
+        <a href="#action">Taking Action</a>
+      </nav>
+
+      <article class="article">
+        <h1 id="intro">The Ocean Crisis</h1>
+        <p class="byline">By Sashin Fernando (Student 1) | SDG 14: Life Below Water</p>
+
+        <p>The ocean is the lifeblood of our planet. Covering more than 70% of Earth's surface, it generates over half the oxygen we breathe, absorbs around 30% of all carbon dioxide produced by human activity, and regulates the global climate.</p>
+
+        <img src="ALL_MEDIA/content_ST1_1.jpeg" alt="Plastic waste floating in ocean water">
+        <p class="img-caption">Plastic pollution has reached every corner of the ocean.</p>
+
+        <h2 id="pollution">Plastic Pollution: The Invisible Flood</h2>
+        <p>Every year, an estimated 8 to 12 million tonnes of plastic waste enters the ocean -the equivalent of dumping a rubbish truck full of plastic into the sea every single minute.</p>
+
+        <div class="stat-box">
+          <div class="stat-num">8–12 million</div>
+          <p>Tonnes of plastic entering the ocean every year.</p>
+        </div>
+
+        <h3>What drives plastic pollution?</h3>
+        <ul>
+          <li>Single-use packaging used once and discarded</li>
+          <li>Inadequate waste management in coastal nations</li>
+          <li>"Ghost gear" -abandoned fishing equipment</li>
+        </ul>
+        <img src="ALL_MEDIA/content_ST1_2.jpg" alt="Marine researcher examining plastic debris on a beach">
+        <p class="img-caption">Ghost gear -abandoned or lost fishing nets -traps and kills marine wildlife globally.</p>
+
+        <h2 id="acidification">Ocean Acidification: The Silent Emergency</h2>
+        <p>The ocean absorbs approximately 25–30% of all CO₂ emitted by human industrial activity. This acidification dissolves the calcium carbonate shells of oysters, corals, and marine life.</p>
+
+        <h2 id="overfishing">Overfishing: Emptying the Sea</h2>
+        <p>Today, the United Nations Food and Agriculture Organisation estimates that over 34% of global fish stocks are harvested at biologically unsustainable levels.</p>
+
+        <h2 id="sea-level">Sea Level Rise: Coastlines Under Threat</h2>
+        <p>Global mean sea levels have risen by approximately 20cm since 1900, and the rate of rise is accelerating due to melting ice sheets.</p>
+        <img src="ALL_MEDIA/content_ST1_3.jpg" alt="Healthy coral reef ecosystem with diverse marine fish species">
+        <p class="img-caption">Healthy coral reefs support an estimated 25% of all marine species, yet are under severe threat from warming and acidifying oceans.</p>
+
+        <h2 id="action">Taking Action: What Each of Us Can Do</h2>
+        <p>The scale of the ocean crisis can feel overwhelming -but human action can reverse the damage. Marine ecosystems are highly resilient when given the opportunity to recover.</p>
+
+        <h3>As an Individual</h3>
+        <ul>
+          <li>Refuse single-use plastic</li>
+          <li>Buy MSC-certified sustainable seafood</li>
+          <li>Reduce your carbon footprint</li>
+        </ul>
+        <img src="ALL_MEDIA/content_ST1_4.jpg" alt="Sustainable fishing practices at sea">
+        <p class="img-caption">Sustainable fishing practices are essential to preserve ocean ecosystems and the livelihoods that depend on them.</p>
+
+      </article>
+    </div>
+  </main>
+
+  <a href="#top" class="go-top" aria-label="Return to top of page">↑</a>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+       
+        <div class="footer-section">
+          <h3>LifeBelowWater</h3>
+          <p style="font-size:0.85rem;color:#9ca89a;">A University of Westminster web development project <br> UN SDG 14 - Life Below Water.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <a href="home.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="team.html">Team</a>
+          <a href="sitemap.html">Sitemap</a>
+        </div>
+       
+        <div class="footer-section">
+          <h3>This Page</h3>
+          <a href="pageEditor_ST1.html" target="_blank" style="color: #0289ff;"> Page Editor - Sashin Fernando (Student 1)</a>
+          <a href="validation_ST1.html" target="_blank" style="color: #0289ff;"> Validation - Sashin Fernando (Student 1)</a>
+        </div>
+      </div>
+     
+      <div class="footer-bottom">
+        <p>&copy; 2026 LifeBelowWater | University of Westminster Web Design Coursework</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

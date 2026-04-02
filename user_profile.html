@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Below Water – User Profile</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --deep-ocean: #001219;
+      --navy: #005f73;
+      --teal: #0a9396;
+      --cyan: #94d2bd;
+      --seafoam: #e9d8a6;
+      --white: #ffffff;
+    }
+
+    body {
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+
+    .profile-page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 5% 80px;
+    }
+    .profile-intro {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .profile-intro p {
+      color: rgba(255,255,255,0.8);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    @media (max-width: 768px) {
+      .profile-layout { grid-template-columns: 1fr; }
+    }
+
+    .steps-panel {
+      background: rgba(0,95,115,0.2);
+      border: 1px solid var(--teal);
+      border-radius: 16px;
+      padding: 30px;
+    }
+
+    .step-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .step-tab {
+      background: rgba(0,95,115,0.3);
+      border: 1px solid var(--teal);
+      color: var(--cyan);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .step-tab.active{
+       background: var(--teal);
+       color: white; 
+    }
+
+    .step-tab.done { 
+      background: rgba(10,147,150,0.5);
+    }
+
+    .start-btn, .step-btn, .revisit-btn {
+      background: var(--teal);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin: 6px 6px 0 0;
+    }
+
+    .start-btn:hover, .step-btn:hover, .revisit-btn:hover {
+       background: var(--navy); 
+    }
+
+    .revisit-btn {
+      background: rgba(0,95,115,0.5);
+      border: 1px solid var(--teal);
+      font-size: 0.88rem;
+      padding: 8px 16px;
+    }
+
+    #status-msg {
+      color: var(--seafoam);
+      font-size: 0.92rem;
+      margin-top: 12px;
+      min-height: 20px;
+    }
+
+    /* Progress bar */
+    .progress-section { margin-bottom: 24px; }
+    .progress-label { font-size: 0.9rem; color: var(--cyan); margin-bottom: 6px; display: flex; justify-content: space-between; }
+    .prog-bar-track {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      height: 14px;
+      overflow: hidden;
+    }
+
+    #prog-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--teal), var(--cyan));
+      border-radius: 20px;
+      transition: width 0.5s ease;
+    }
+
+    /* Profile output panel */
+    .profile-output {
+      background: rgba(0,18,25,0.6);
+      border: 1px solid var(--teal);
+      border-radius: 16px;
+      padding: 30px;
+    }
+
+    .profile-output h3 { 
+      color: var(--cyan); 
+      margin: 0 0 20px; 
+      font-size: 1.2rem; 
+    }
+
+    .profile-step-block {
+      display: none;
+      background: rgba(0,95,115,0.15);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 14px;
+      border-left: 3px solid var(--teal);
+    }
+
+    .profile-step-block.visible { 
+      display: block; 
+    }
+
+    .profile-step-block h4 {
+       color: var(--seafoam); 
+       margin: 0 0 8px; 
+       font-size: 0.92rem;
+        text-transform: uppercase; 
+        letter-spacing: 0.05em;
+       }
+    .profile-step-block .profile-line {
+       font-size: 0.9rem; 
+       color: rgba(255,255,255,0.85);
+        margin-bottom: 4px;
+       }
+       
+    .profile-step-block .profile-line span { 
+      color: var(--cyan);
+     }
+
+    #empty-state {
+      text-align: center;
+      color: rgba(255,255,255,0.4);
+      padding: 40px 0;
+      font-size: 0.95rem;
+    }
+
+    #confirm-complete {
+      display: none;
+      background: rgba(10,147,150,0.3);
+      border: 1px solid var(--teal);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      color: var(--cyan);
+      margin-top: 16px;
+    }
+
+    .img-style{
+      display:block; 
+      width:18%;
+      height: auto;
+      max-width: 100%; 
+      height:auto; 
+      object-fit:cover; 
+      margin:24px auto 0;
+    }
+
+  </style>
+
+</head>
+<body>
+  <main>
+
+    <nav class="navbar">
+      <div class="logo">
+        <a href="home.html"><img src="ALL_MEDIA/LIFE_UNDER_WATER.png" alt="Logo"></a>
+        <p><a href="home.html"><span style="color: #0289ff;">L</span>ife<span style="color: #0289ff;">B</span>elow<span style="color: #0289ff;">W</span>ater</a></p>
+      </div>
+      <ul class="nav-list">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="user_profile.html" class="active">Profile</a></li>
+        <li><a href="sitemap.html">Sitemap</a></li>
+      </ul>
+    </nav>
+
+    <div class="profile-page">
+      <div class="profile-intro">
+        <h1>Build Your Ocean Profile</h1>
+        <p>This page builds your profile step by step using prompts. Complete three steps to discover your ocean identity. <br> (You can skip questions and return to complete them later)</p>
+
+        <img class="img-style" src="ALL_MEDIA/profile1.png" alt="Ocean sunrise">
+      </div>
+
+      <div class="profile-layout">
+
+        <!-- Controls -->
+        <div class="steps-panel">
+          <h2 style="color:var(--cyan); margin:0 0 20px; font-size:1.15rem;">Your Journey</h2>
+
+          <!-- Progress -->
+          <div class="progress-section" role="region" aria-label="Profile completion progress">
+            <div class="progress-label">
+              <span>Completion</span>
+              <span id="prog-pct">0%</span>
+            </div>
+            <div class="prog-bar-track">
+              <div id="prog-fill" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="9"></div>
+            </div>
+            <p id="step-counter" style="font-size:0.85rem; color:rgba(255,255,255,0.5); margin-top:6px;">0 of 9 prompts completed</p>
+          </div>
+
+          <!-- Step tabs -->
+          <div class="step-tabs" role="tablist">
+            <button class="step-tab" id="tab-1" role="tab" aria-selected="false">Step 1: Basics</button>
+            <button class="step-tab" id="tab-2" role="tab" aria-selected="false">Step 2: Interests</button>
+            <button class="step-tab" id="tab-3" role="tab" aria-selected="false">Step 3: Actions</button>
+          </div>
+
+          <!-- Start buttons -->
+          <button class="start-btn" id="start-btn" aria-label="Start or continue building your profile">Start / Continue Profile</button>
+          <button class="start-btn" id="reset-btn" style="background:transparent; border:1px solid var(--teal); color:var(--cyan); margin-left:8px;" aria-label="Reset profile">Reset</button>
+
+          <!-- Revisit buttons -->
+          <div id="revisit-wrap" style="margin-top:16px; display:none;">
+            <p style="color:rgba(255,255,255,0.6); font-size:0.88rem; margin-bottom:8px;">Revisit a skipped step:</p>
+            <button class="revisit-btn" data-step="1">Revisit Step 1</button>
+            <button class="revisit-btn" data-step="2">Revisit Step 2</button>
+            <button class="revisit-btn" data-step="3">Revisit Step 3</button>
+          </div>
+
+          <p id="status-msg" aria-live="polite"></p>
+        </div>
+
+        <!-- Profile output -->
+        <div class="profile-output" role="region" aria-label="Your profile summary">
+          <h3>Your Profile (Updates Progressively)</h3>
+
+          <div id="empty-state">Complete at least one step to see your profile here.</div>
+
+          <!-- Step 1 block -->
+          <div class="profile-step-block" id="block-1">
+            <h4>Step 1: Basic Details</h4>
+            <p class="profile-line">Name: <span id="out-name">—</span></p>
+            <p class="profile-line">Username: <span id="out-username">—</span></p>
+            <p class="profile-line">Location: <span id="out-location">—</span></p>
+          </div>
+
+          <!-- Step 2 block -->
+          <div class="profile-step-block" id="block-2">
+            <h4>Step 2: Ocean Interests</h4>
+            <p class="profile-line">Favourite SDG Topic: <span id="out-topic">—</span></p>
+            <p class="profile-line">Marine Life Interest: <span id="out-marine">—</span></p>
+            <p class="profile-line">Weekly Commitment: <span id="out-commitment">—</span></p>
+          </div>
+
+          <!-- Step 3 block -->
+          <div class="profile-step-block" id="block-3">
+            <h4>Step 3: Actions &amp; Goals</h4>
+            <p class="profile-line">Action Taken: <span id="out-action">—</span></p>
+            <p class="profile-line">Ocean Goal: <span id="out-goal">—</span></p>
+            <p class="profile-line">Message to Future Self: <span id="out-message">—</span></p>
+          </div>
+
+          <div id="confirm-complete" role="status">
+            Profile complete! You are a true ocean champion.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-section">
+          <h4>LifeBelowWater</h4>
+          <p style="font-size:0.85rem;color:#9ca89a;">A University of Westminster web development project <br> UN SDG 14 – Life Below Water.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <a href="home.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="team.html">Team</a>
+          <a href="sitemap.html">Sitemap</a>
+        </div>
+        <div class="footer-section">
+          <h4>This Page</h4>
+          <a href="pageEditor_ST4.html" target="_blank" style="color: #0289ff;">Page Editor - Chanul Dilhara (Student 4)</a>
+          <a href="validation_ST4.html" target="_blank" style="color: #0289ff;">Validation - Chanul Dilhara (Student 4)</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 LifeBelowWater | University of Westminster Web Design Coursework</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Profile data storage using objects 
+    const profile = {
+      step1: { name: null, username: null, location: null, done: false },
+      step2: { topic: null, marine: null, commitment: null, done: false },
+      step3: { action: null, goal: null, message: null, done: false }
+    };
+
+    let completedPrompts = 0;
+    const TOTAL_PROMPTS  = 9;
+
+    // DOM references
+    const progFill    = document.getElementById('prog-fill');
+    const progPct     = document.getElementById('prog-pct');
+    const stepCounter = document.getElementById('step-counter');
+    const statusMsg   = document.getElementById('status-msg');
+    const emptyState  = document.getElementById('empty-state');
+    const revisitWrap = document.getElementById('revisit-wrap');
+    const confirmBox  = document.getElementById('confirm-complete');
+
+    // Update progress
+    function updateProgress() {
+      const pct = Math.round((completedPrompts / TOTAL_PROMPTS) * 100);
+      progFill.style.width = pct + '%';
+      progFill.setAttribute('aria-valuenow', completedPrompts);
+      progPct.textContent  = pct + '%';
+      stepCounter.textContent = completedPrompts + ' of ' + TOTAL_PROMPTS + ' prompts completed';
+
+      if (completedPrompts === TOTAL_PROMPTS) {
+        confirmBox.style.display = 'block';
+      }
+    }
+
+    // Show a profile block
+    function revealBlock(blockId) {
+      const block = document.getElementById('block-' + blockId);
+      block.classList.add('visible');
+      emptyState.style.display = 'none';
+    }
+
+    // Collect a prompt
+    function ask(question, defaultVal) {
+      const answer = prompt(question + '\n\n(Press Cancel or leave blank to skip)');
+      if (answer === null || answer.trim() === '') return null;
+      completedPrompts++;
+      return answer.trim();
+    }
+
+    // Step 1: Basic Details
+    function runStep1() {
+      statusMsg.textContent = 'Collecting Step 1: Basic Details…';
+
+      const name     = ask('Step 1 of 3 — Basic Details\n\nWhat is your name?');
+      const username = ask('What username would you like on your ocean profile?');
+      const location = ask('Where are you based? (city / country)');
+
+      profile.step1.name     = name;
+      profile.step1.username = username;
+      profile.step1.location = location;
+      profile.step1.done     = true;
+
+      // Update DOM output
+      document.getElementById('out-name').textContent     = name     || '(skipped)';
+      document.getElementById('out-username').textContent = username || '(skipped)';
+      document.getElementById('out-location').textContent = location || '(skipped)';
+
+      revealBlock(1);
+      document.getElementById('tab-1').classList.add('done');
+      statusMsg.textContent = 'Step 1 saved. Completion is now ' + Math.round((completedPrompts/TOTAL_PROMPTS)*100) + '%. You may continue or revisit any step.';
+      updateProgress();
+      revisitWrap.style.display = 'block';
+    }
+
+    // Step 2: Interests
+    function runStep2() {
+      statusMsg.textContent = 'Collecting Step 2: Ocean Interests…';
+
+      const topic      = ask('Step 2 of 3 — Ocean Interests\n\nWhat ocean topic interests you most? (e.g. coral reefs, plastic pollution, fisheries)');
+      const marine     = ask('What marine animal do you most want to protect?');
+      const commitment = ask('How many hours per week can you commit to ocean action?');
+
+      profile.step2.topic      = topic;
+      profile.step2.marine     = marine;
+      profile.step2.commitment = commitment;
+      profile.step2.done       = true;
+
+      document.getElementById('out-topic').textContent      = topic      || '(skipped)';
+      document.getElementById('out-marine').textContent     = marine     || '(skipped)';
+      document.getElementById('out-commitment').textContent = commitment ? commitment + ' hrs/week' : '(skipped)';
+
+      revealBlock(2);
+      document.getElementById('tab-2').classList.add('done');
+      statusMsg.textContent = 'Step 2 saved. Completion is now ' + Math.round((completedPrompts/TOTAL_PROMPTS)*100) + '%. You may continue or revisit any step.';
+      updateProgress();
+      revisitWrap.style.display = 'block';
+    }
+
+    // Step 3: Actions
+    function runStep3() {
+      statusMsg.textContent = 'Collecting Step 3: Actions & Goals…';
+
+      const action  = ask('Step 3 of 3 — Actions & Goals\n\nWhat ocean-related action have you already taken?');
+      const goal    = ask('What is your biggest ocean goal for this year?');
+      const message = ask('Write a short message to your future self about protecting the ocean.');
+
+      profile.step3.action  = action;
+      profile.step3.goal    = goal;
+      profile.step3.message = message;
+      profile.step3.done    = true;
+
+      document.getElementById('out-action').textContent  = action  || '(skipped)';
+      document.getElementById('out-goal').textContent    = goal    || '(skipped)';
+      document.getElementById('out-message').textContent = message || '(skipped)';
+
+      revealBlock(3);
+      document.getElementById('tab-3').classList.add('done');
+      statusMsg.textContent = 'Step 3 saved. Completion is now ' + Math.round((completedPrompts/TOTAL_PROMPTS)*100) + '%.';
+      updateProgress();
+      revisitWrap.style.display = 'block';
+    }
+
+    // Start button
+    document.getElementById('start-btn').addEventListener('click', function() {
+      // Run next uncompleted step
+      if (!profile.step1.done)      runStep1();
+      else if (!profile.step2.done) runStep2();
+      else if (!profile.step3.done) runStep3();
+      else {
+        statusMsg.textContent = 'All steps are complete! You can revisit any step below.';
+      }
+    });
+
+    // Revisit buttons
+    document.querySelectorAll('.revisit-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const step = parseInt(this.dataset.step);
+
+        // Reset count for this step before re-running
+        const stepKey = 'step' + step;
+        const prevDone = profile[stepKey].done;
+
+        // Subtract old prompt count for this step
+        if (prevDone) {
+          const old = profile[stepKey];
+          const prevCount = [old.name || old.topic || old.action, old.username || old.marine || old.goal, old.location || old.commitment || old.message].filter(v => v && v !== '(skipped)').length;
+          completedPrompts = Math.max(0, completedPrompts - prevCount);
+        }
+
+        profile[stepKey].done = false;
+        if (step === 1) runStep1();
+        else if (step === 2) runStep2();
+        else runStep3();
+      });
+    });
+
+    // Reset button 
+    document.getElementById('reset-btn').addEventListener('click', function() {
+      if (!confirm('Reset your entire profile? This cannot be undone.')) return;
+
+      Object.assign(profile.step1, { name:null, username:null, location:null, done:false });
+      Object.assign(profile.step2, { topic:null, marine:null, commitment:null, done:false });
+      Object.assign(profile.step3, { action:null, goal:null, message:null, done:false });
+      completedPrompts = 0;
+
+      ['block-1','block-2','block-3'].forEach(id => document.getElementById(id).classList.remove('visible'));
+      ['tab-1','tab-2','tab-3'].forEach(id => document.getElementById(id).classList.remove('done','active'));
+      ['out-name','out-username','out-location','out-topic','out-marine','out-commitment','out-action','out-goal','out-message'].forEach(id => { document.getElementById(id).textContent = '—'; });
+
+      emptyState.style.display = 'block';
+      confirmBox.style.display = 'none';
+      revisitWrap.style.display = 'none';
+      statusMsg.textContent = 'Profile reset. Start fresh!';
+      updateProgress();
+    });
+  </script>
+</body>
+</html>

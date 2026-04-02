@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validation Page - Sashin Fernando</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    body {
+      line-height: 1.6;
+    }
+
+    /* Student details */
+    .stud {
+      background: linear-gradient(90deg, #001219, #005f73);
+      color: #94d2bd;
+      text-align: center;
+      margin-top: 100px;
+      font-size: 30px;
+      font-weight: bold;
+      padding: 10px;
+    }
+
+    .stud h2 {
+      color: #94d2bd;
+      font-size: 1.1rem;
+      margin: 0;
+      text-shadow: none;
+    }
+
+    main {
+      width: 100%;
+      flex: 1;
+      min-width: 0;
+      padding-top: 0;
+    }
+
+    /* Sections */
+    section {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(148, 210, 189, 0.2);
+      border-radius: 10px;
+      padding: 28px;
+      margin-bottom: 30px;
+    }
+
+    section h2 {
+      color: #6ae6ff;
+      font-size: 1.25rem;
+      border-left: 4px solid #0a9396;
+      padding-left: 12px;
+      margin-bottom: 14px;
+      text-align: left;
+      text-shadow: none;
+    }
+
+    section h3 {
+      color: #94d2bd;
+      font-size: 1rem;
+      margin-top: 18px;
+      margin-bottom: 6px;
+      text-align: left;
+      text-shadow: none;
+    }
+
+    section p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.92rem;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    section p a {
+      color: #94d2bd;
+    }
+
+    section p a:hover {
+      color: #0a9396;
+      text-decoration: underline;
+    }
+
+    /* Validation screenshot images */
+    section img {
+      display: block;
+      max-width: 100%;
+      border: 2px solid rgba(10, 147, 150, 0.4);
+      border-radius: 8px;
+      margin-top: 14px;
+    }
+
+    /* Validation result box */
+    .validation-box {
+      background: rgba(27, 94, 32, 0.2);
+      border: 1px solid #a5d6a7;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-top: 14px;
+      font-size: 0.9rem;
+      color: #a5d6a7;
+    }
+
+    .validation-box strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+    }
+
+    /* Go top link */
+    p.top {
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    p.top a {
+      color: #94d2bd;
+      font-size: 0.85rem;
+    }
+
+    p.top a:hover {
+      color: #0a9396;
+      text-decoration: underline;
+    }
+
+
+    /* Page layout with sidebar */
+    .page-layout {
+      display: flex;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px 80px;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    /* Left sidebar nav */
+    .side-nav {
+      width: 210px;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(148, 210, 189, 0.2);
+      border-radius: 10px;
+      padding: 20px 16px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .side-nav h4 {
+      color: #6ae6ff;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 14px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(148, 210, 189, 0.2);
+    }
+
+    .side-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .side-nav > ul > li {
+      margin-bottom: 12px;
+    }
+
+    .side-nav > ul > li > span {
+      color: #94d2bd;
+      font-size: 0.82rem;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .side-nav ul ul {
+      padding-left: 10px;
+      list-style: disc;
+      list-style-position: inside;
+    }
+
+    .side-nav ul ul li {
+      margin-bottom: 3px;
+      list-style: none;
+    }
+
+    .side-nav ul ul li::before {
+      content: "○ ";
+      color: rgba(148, 210, 189, 0.5);
+      font-size: 0.7rem;
+    }
+
+    .side-nav ul ul li a {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .side-nav ul ul li a:hover {
+      color: #94d2bd;
+    }
+
+    @media (max-width: 760px) {
+      .page-layout { flex-direction: column; padding: 0 20px 60px; }
+      .side-nav { width: 100%; position: static; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Nav Bar -->
+  <header id="top">
+    <nav class="navbar">
+      <div class="logo">
+        <a href="home.html"><img src="ALL_MEDIA/LIFE_UNDER_WATER.png" alt="Logo"></a>
+        <p><a href="home.html"><span style="color: #0289ff;">L</span>ife<span style="color: #0289ff;">B</span>elow<span style="color: #0289ff;">W</span>ater</p></a>
+    </div>
+      <ul class="nav-list">
+        <a href="home.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="team.html">Team</a>
+        <a href="user_profile.html">Profile</a>
+        <a href="sitemap.html">Sitemap</a>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Student details -->
+  <p class="stud">Sashin Fernando, Group 4 (Team 8), Student 1</p>
+  
+  <div class="page-layout">
+
+    <!-- Left Nav bar -->
+    <nav class="side-nav" aria-label="Core pages developed">
+      <h4>Core pages developed:</h4>
+      <ul>
+        <li>
+          <span>Student 1</span>
+          <ul>
+            <li><a href="home.html">Home page</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="content_ST1.html">Content</a></li>
+          </ul>
+        </li>
+        <li>
+          <span>Student 2</span>
+          <ul>
+            <li><a href="splash.html">Splash Screen</a></li>
+            <li><a href="quiz.html">Action Impact Simulator</a></li>
+            <li><a href="content_ST2.html">Content</a></li>
+          </ul>
+        </li>
+        <li>
+          <span>Student 3</span>
+          <ul>
+            <li><a href="feedback.html">Feedback</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="content_ST3.html">Content</a></li>
+          </ul>
+        </li>
+        <li>
+          <span>Student 4</span>
+          <ul>
+            <li><a href="user_profile.html">User Profile</a></li>
+            <li><a href="sitemap.html">Sitemap</a></li>
+            <li><a href="content_ST4.html">Content</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <!-- Intro -->
+      <section>
+        <h2>About This Validation Page</h2>
+        <p>This page provides W3C HTML validation evidence for all pages implemented by Sashin Fernando. All pages were validated at <a href="https://validator.w3.org" target="_blank">validator.w3.org</a> with no errors. Screenshots from the W3C validator are included below for each page.</p>
+      </section>
+
+      <!-- Home page -->
+      <section>
+        <h2 id="homeVal">Home Page Validation Report</h2>
+        <p>The Home Page was validated using the W3C Nu Html Checker by direct input. All structural HTML, embedded CSS, and link targets were checked. Result: no errors found.</p>
+        <div class="validation-box">
+          <strong>Validation Result: No errors</strong>
+          Document: home.html | Checker: W3C Nu Html Checker 
+        </div>
+        <img src="Validation_Snapshots/home.jpg" alt="W3C validation screenshot for home">
+        <h3>Back to Page Editor</h3>
+        <p><a href="pageEditor_ST1.html#home">Go to the Home Page section in my Page Editor</a></p>
+      </section>
+
+      <!-- Gallery page -->
+      <section>
+        <h2 id="galleryVal">Gallery Page Validation Report</h2>
+        <p>The Gallery Page was validated using the W3C Nu Html Checker. JavaScript was not evaluated by the validator - only HTML structure was checked. No errors found.</p>
+        <div class="validation-box">
+          <strong>&#10003; Validation Result: No errors</strong>
+          Document: gallery.html | Checker: W3C Nu Html Checker 
+        </div>
+        <img src="Validation_Snapshots/gallery.jpg" alt="W3C validation screenshot for gallery.html showing no errors">
+        <h3>Back to Page Editor</h3>
+        <p><a href="pageEditor_ST1.html#gallery">Go to the Gallery Page section in my Page Editor</a></p>
+      </section>
+
+      <!-- Content page -->
+      <section>
+        <h2 id="contentVal">Content Page Validation Report</h2>
+        <p>The Content Page was validated using the W3C Nu Html Checker. All heading hierarchy, anchor links, and image alt attributes were confirmed as valid. No errors found.</p>
+        <div class="validation-box">
+          <strong>&#10003; Validation Result: No errors</strong>
+          Document: content_ST1.html | Checker: W3C Nu Html Checker 
+        </div>
+        <img src="Validation_Snapshots/content_st1.jpg" alt="W3C validation screenshot for content_ST1.html showing no errors">
+        <h3>Back to Page Editor</h3>
+        <p><a href="pageEditor_ST1.html#content">Go to the Content Page section in my Page Editor</a></p>
+      </section>
+
+      <!-- Reflection -->
+      <section>
+        <h2 id="reflection">Reflection on Validation</h2>
+        <p>The W3C validation process was a valuable part of the development workflow. During initial validation, the home.html file contained an unclosed section tag inside the hero area, which was caught immediately and corrected. A stray div in gallery.html was also identified this way.</p>
+        <p>Running validation iteratively - after each significant code change rather than only at the end - made it significantly easier to isolate the source of errors. This is a practice I will carry into all future web development work.</p>
+        <p>No pages in my submission produced validation errors in their final submitted state. Minor informational warnings (such as the type attribute on JavaScript script elements being unnecessary in HTML 5) were acknowledged but do not constitute errors.</p>
+      </section>
+
+      <p class="top"><a href="#top">Go to Top</a></p>
+
+    </main>
+
+  </div>
+  <!-- Footer -->
+ <footer>
+    <div class="container">
+      <div class="footer-inner">
+       
+        <div class="footer-section">
+          <h4>LifeBelowWater</h4>
+          <p style="font-size:0.85rem;color:#9ca89a;">A University of Westminster web development project <br> UN SDG 14 - Life Below Water.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <a href="home.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="team.html">Team</a>
+          <a href="sitemap.html">Sitemap</a>
+        </div>
+       
+        <div class="footer-section">
+          <h4>This Page</h4>
+         
+          <a href="pageEditor_ST1.html" target="_blank" style="color: #0289ff;"> Page Editor - Sashin Fernando (Student 1)</a>
+          <a href="validation_ST1.html" target="_blank" style="color: #0289ff;"> Validation - Sashin Fernando (Student 1)</a>
+        </div>
+      </div>
+     
+      <div class="footer-bottom">
+        <p>&copy; 2026 LifeBelowWater | University of Westminster Web Design Coursework</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Editor - Lakmina Gayathra</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root{
+      --deep-ocean:#001219;
+      --navy:#005f73;
+      --teal:#0a9396;
+      --cyan:#94d2bd;
+      --seafoam:#e9d8a6;
+      --white:#ffffff
+    }
+
+    body {
+      line-height: 1.6;
+    }
+
+    /* Student details */
+    .stud {
+      background: linear-gradient(90deg, #001219, #005f73);
+      color: #94d2bd;
+      text-align: center;
+      margin-top: 100px;
+      font-size: 30px;
+      font-weight: bold;
+      padding: 10px;
+    }
+
+    main {
+      width: 100%;
+      padding-top: 0;
+    }
+
+    .toc {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(148, 210, 189, 0.2);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 40px;
+    }
+
+    .toc h2 {
+      color: #6ae6ff;
+      margin-bottom: 14px;
+      font-size: 1rem;
+      border-left: 4px solid #0a9396;
+      padding-left: 12px;
+      text-shadow: none;
+      text-align: left;
+    }
+
+    .toc a {
+      display: block;
+      color: #94d2bd;
+      text-decoration: none;
+      padding: 4px 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(148, 210, 189, 0.15);
+    }
+
+    .toc a:hover {
+      color: #0a9396;
+    }
+
+    .toc a:last-child {
+      border-bottom: none;
+    }
+
+    /* Sections */
+    section {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(148, 210, 189, 0.2);
+      border-radius: 10px;
+      padding: 28px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: #6ae6ff !important;
+      font-size: 1.3rem;
+      border-left: 4px solid #0a9396;
+      padding-left: 14px;
+      margin-bottom: 16px;
+      margin-top: 0;
+      text-align: left !important;
+      text-shadow: none !important;
+    }
+
+    h3 {
+      color: #94d2bd;
+      font-size: 1.05rem;
+      margin: 20px 0 10px;
+      text-align: left;
+      text-shadow: none;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.92rem;
+    }
+
+    ul {
+      padding-left: 22px;
+      margin-bottom: 14px;
+    }
+
+    ul li {
+      margin-bottom: 6px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.92rem;
+    }
+
+    /* Page link buttons */
+    .page-link {
+      display: inline-block;
+      background: #005f73;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin: 6px 6px 0 0;
+      transition: background 0.2s;
+    }
+
+    .page-link:hover {
+      background: #0a9396;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 10px;
+    }
+
+    th {
+      background: #005f73;
+      color: white;
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    td {
+      padding: 9px 12px;
+      border-bottom: 1px solid rgba(148, 210, 189, 0.2);
+      vertical-align: top;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.88rem;
+    }
+
+    tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    /* Go to top */
+    p.top {
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    p.top a {
+      color: #94d2bd;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+
+    p.top a:hover {
+      color: #0a9396;
+      text-decoration: underline;
+    }
+
+    /* Back to top */
+    .back-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0a9396;
+      color: white;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .back-top:hover {
+      background: #005f73;
+    }
+
+    .st_details {
+      color: white;
+      text-align: center;
+      background-color: #005f73;
+      padding: 20px;
+      margin: 20px auto;
+    }
+
+    /* Page layout with sidebar */
+    .page-layout {
+      display: flex;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px 80px;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    /* Left sidebar nav */
+    .side-nav {
+      width: 210px;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(148, 210, 189, 0.2);
+      border-radius: 10px;
+      padding: 20px 16px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .side-nav h4 {
+      color: #6ae6ff;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 14px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(148, 210, 189, 0.2);
+    }
+
+    .side-nav > ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .side-nav > ul > li {
+      margin-bottom: 12px;
+    }
+
+    .side-nav > ul > li > span {
+      color: #94d2bd;
+      font-size: 0.82rem;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .side-nav > ul > li > a {
+      color: #94d2bd;
+      font-size: 0.82rem;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      text-decoration: none;
+    }
+
+    .side-nav > ul > li > a:hover {
+      color: #0a9396;
+    }
+
+    .side-nav ul ul {
+      list-style: none;
+      padding-left: 10px;
+      margin: 0;
+    }
+
+    .side-nav ul ul li {
+      margin-bottom: 3px;
+      font-size: 0.92rem;
+    }
+
+    .side-nav ul ul li::before {
+      content: "○ ";
+      color: rgba(148, 210, 189, 0.5);
+      font-size: 0.7rem;
+    }
+
+    .side-nav ul ul li a {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .side-nav ul ul li a:hover {
+      color: #94d2bd;
+    }
+
+    .page-layout > main {
+      flex: 1;
+      min-width: 0;
+      padding-top: 0;
+      width: 100%;
+    }
+
+    @media (max-width: 760px) {
+      .page-layout { flex-direction: column; padding: 0 20px 60px; }
+      .side-nav { width: 100%; position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="home.html"><img src="ALL_MEDIA/LIFE_UNDER_WATER.png" alt="Logo"></a>
+      <p><a href="home.html"><span style="color: #0289ff;">L</span>ife<span style="color: #0289ff;">B</span>elow<span style="color: #0289ff;">W</span>ater</p></a>
+    </div>
+    <ul class="nav-list">
+      <a href="home.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="team.html">Team</a>
+      <a href="user_profile.html">Profile</a>
+      <a href="sitemap.html">Sitemap</a>
+    </ul>
+  </nav>
+
+  <!-- Student details -->
+  <p class="stud">Lakmina Gayathra, Group 4 (Team 8), Student 3</p>
+
+  <div class="page-layout" id="top">
+
+    <!-- Left sidebar nav -->
+    <nav class="side-nav" aria-label="Core pages developed">
+      <h4>Core pages developed:</h4>
+      <ul>
+        <li>
+          <span>Student 1</span>
+          <ul>
+            <li><a href="home.html">Home page</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="content_ST1.html">Content</a></li>
+          </ul>
+        </li>
+        <li>
+          <span>Student 2</span>
+          <ul>
+            <li><a href="splash.html">Splash Screen</a></li>
+            <li><a href="quiz.html">Action Impact Simulator</a></li>
+            <li><a href="content_ST2.html">Content</a></li>
+          </ul>
+        </li>
+        <li>
+          <span>Student 3</span>
+          <ul>
+            <li><a href="feedback.html">Feedback</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="content_ST3.html">Content</a></li>
+          </ul>
+        </li>
+        <li>
+          <span>Student 4</span>
+          <ul>
+            <li><a href="user_profile.html">User Profile</a></li>
+            <li><a href="sitemap.html">Sitemap</a></li>
+            <li><a href="content_ST4.html">Content</a></li>
+          </ul>
+        </li>
+        <li><a href="#challenges">Challenges and Lessons Learned</a></li>
+        <li><a href="#janet">Compliance</a></li>
+        <li><a href="#meetings">Group Meetings and Individual Contribution Log</a></li>
+        <li><a href="#references">References</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <!-- 1. Overview -->
+      <section id="overview">
+        <h2>1. Student Overview</h2>
+        <p><strong>Name:</strong> Lakmina Gayathra</p>
+        <p><strong>Role:</strong> Feedback Page & Team Page Developer</p>
+        <p><strong>Completed Pages / Tasks:</strong></p>
+        <ul>
+          <li>Feedback & Programme Directory (feedback.html) - scrollable programme cards, reviews, and validated form</li>
+          <li>Team Page (team.html) - interactive hover-reveal team profiles with CSS overlay panels</li>
+          <li>Content Page - Plastic Pollution & Ocean Waste (content_ST3.html)</li>
+        </ul>
+        <a href="feedback.html" class="page-link" target="_blank">View Feedback Page</a>
+        <a href="team.html" class="page-link" target="_blank">View Team Page</a>
+        <a href="content_ST3.html" class="page-link" target="_blank">View Content Page</a>
+      </section>
+
+      <!-- 2. Feedback Page -->
+      <section id="feedback">
+        <h2>2. Feedback & Programme Directory</h2>
+        <h3>Technical Description</h3>
+        <p>The page is divided into three main sections: the Programme Directory, the Ratings section, and the Feedback Form. The Programme Directory uses a scrollable container (<code>.programme-scroll</code>) with <code>max-height: 520px; overflow-y: auto</code> and custom scrollbar styling via <code>::webkit-scrollbar</code> to keep the list compact without losing content. Each programme card uses a CSS Grid layout with three columns (thumbnail image, text content, action button), collapsing to a single column on screens below 700px via a media query.</p>
+        <p>The feedback form uses two <code>&lt;fieldset&gt;</code> elements to logically group personal details and feedback content fields, with <code>&lt;legend&gt;</code> labels for both. A live character counter is implemented in JavaScript using an <code>input</code> event listener on the textarea, subtracting the current length from 500 and updating a <code>&lt;p&gt;</code> element in real time. The counter text turns red when fewer than 50 characters remain.</p>
+        <p>Form validation is fully JavaScript-driven. On submit, the handler calls <code>e.preventDefault()</code>, then validates the name field (non-empty), email field (against a regex pattern <code>/^[^\s@]+@[^\s@]+\.[^\s@]+$/</code>), and message field (non-empty). Invalid fields receive a red border via inline style and show an adjacent error paragraph by setting <code>style.display = 'block'</code>. On successful validation, a confirmation message is revealed and the form is reset.</p>
+        <h3>Accessibility</h3>
+        <p>All form inputs have associated <code>&lt;label&gt;</code> elements linked via <code>for</code>/<code>id</code> attributes. The programme card list uses <code>role="list"</code> and each card uses <code>role="listitem"</code> for screen-reader landmark compatibility. The confirmation message uses <code>role="alert"</code> so assistive technologies announce it automatically when it appears. The sort dropdown uses <code>aria-label</code> for screen-reader identification.</p>
+        <a href="validation_ST3.html#feedbackVal" class="page-link" target="_blank">See Validation Evidence</a>
+        <a href="feedback.html" class="page-link" target="_blank">View Feedback Page</a>
+      </section>
+
+      <!-- 3. Team Page -->
+      <section id="team">
+        <h2>3. Team Page</h2>
+        <h3>Technical Description</h3>
+        <p>The team page uses a CSS Grid with <code>repeat(auto-fit, minmax(220px, 1fr))</code> to lay out four team member blocks responsively. Each <code>.member-block</code> is <code>position: relative</code> and contains both the circular portrait thumbnail and a hidden <code>.member-details</code> overlay panel.</p>
+        <p>The hover reveal effect is achieved entirely with CSS transitions. The <code>.member-details</code> panel starts with <code>opacity: 0; max-height: 0; overflow: hidden</code> and transitions to <code>opacity: 1; max-height: 400px</code> when the parent <code>.member-block</code> receives the <code>:hover</code> or <code>:focus-within</code> pseudo-class. Simultaneously, the thumbnail transitions to <code>opacity: 0.4; transform: scale(1.06)</code> to give a blur-out effect that draws attention to the overlay. No JavaScript is required for this interaction.</p>
+        <p>The overlay panel uses <code>position: absolute</code> anchored to the top of the member block, and <code>transform: translateX(-50%)</code> to centre it horizontally regardless of the block's position within the grid. <code>pointer-events: none</code> is set by default and switched to <code>auto</code> on hover, preventing the invisible panel from intercepting mouse events when not shown.</p>
+        <h3>Accessibility</h3>
+        <p>Each member block has <code>tabindex="0"</code> so keyboard users can focus it and trigger the <code>:focus-within</code> state to reveal the details panel. The overlay panel uses <code>role="tooltip"</code>. Each block includes an <code>aria-label</code> indicating how to access details (hover or focus). This ensures the interactive content is usable without a pointing device.</p>
+        <a href="validation_ST3.html#teamVal" class="page-link" target="_blank">See Validation Evidence</a>
+        <a href="team.html" class="page-link" target="_blank">View Team Page</a>
+      </section>
+
+      <!-- 4. Content Page -->
+      <section id="content">
+        <h2>4. Content Page - Plastic Pollution & Ocean Waste</h2>
+        <h3>Technical Description</h3>
+        <p>The content page follows the same two-column CSS Grid layout as the other content pages, with a 240px sticky side navigation and a <code>1fr</code> article column. The side nav uses <code>position: sticky; top: 100px; height: fit-content</code>, so it remains visible without scrolling past the article's natural height.</p>
+        <p>Section headings use <code>&lt;h2&gt;</code> with a left teal border (<code>border-left: 4px solid var(--teal)</code> and <code>padding-left: 14px</code>) and the seafoam colour variable for contrast. Subsections use <code>&lt;h3&gt;</code> in cyan. Stat callout boxes (<code>.stat-box</code>) use semi-transparent navy backgrounds with the large <code>.stat-num</code> displayed in seafoam to create immediate visual impact for key statistics. A <code>.go-top</code> fixed-position anchor provides persistent navigation for the long-form content.</p>
+        <h3>Accessibility</h3>
+        <p>The side navigation uses <code>aria-label="Page sections"</code> to distinguish it from the site-wide navigation. Images have detailed alt text. On screens below 768px the side nav is hidden and the layout becomes single-column for readability. All anchor links in the side nav target heading IDs using <code>scroll-behavior: smooth</code> defined on the <code>html</code> element in the shared CSS.</p>
+        <a href="validation_ST3.html#contentVal" class="page-link" target="_blank">See Validation Evidence</a>
+        <a href="content_ST3.html" class="page-link" target="_blank">View Content Page</a>
+      </section>
+
+      <!-- 5. Challenges -->
+      <section id="challenges">
+        <h2>5. Challenges & Lessons Learned</h2>
+        <p><strong>Challenge 1: Form validation preventing scroll to error.</strong> After showing validation errors, the user had to manually scroll to find the highlighted field. Resolved by adding <code>element.scrollIntoView({ behavior: 'smooth' })</code> on the first invalid field found, improving error discoverability.</p>
+        <p><strong>Challenge 2: Team overlay clipped on small screens.</strong> The absolutely-positioned overlay panel overflowed the visible area on mobile. Resolved by adding a max-width media query that reduces the overlay width from 240px to 200px on screens below 600px.</p>
+        <p><strong>Challenge 3: Scrollable programme list height on mobile.</strong> The fixed <code>max-height</code> on the programme scroll container left too little visible content on short mobile screens. Resolved by using a media query to reduce <code>max-height</code> proportionally on screens below 600px.</p>
+        <p><strong>Lesson:</strong> CSS-only interactions (like the team hover panels) are more reliable across devices than JavaScript-managed show/hide, but require careful testing at multiple breakpoints to catch overflow and clipping issues.</p>
+      </section>
+
+      <!-- 6. Accessibility -->
+      <section id="accessibility">
+        <h2>6. Accessibility Considerations</h2>
+        <p>All images on my pages include descriptive alt text. Form inputs have properly associated labels. Interactive elements are keyboard accessible — the team page blocks use <code>tabindex</code> and <code>:focus-within</code>, while form buttons are native elements. Semantic HTML landmarks (<code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;fieldset&gt;</code>) are used throughout. The confirmation message on the feedback form uses <code>role="alert"</code> for screen-reader announcement.</p>
+      </section>
+
+      <!-- 7. JANET -->
+      <section id="janet">
+        <h2>7. JANET Compliance</h2>
+        <p>All content on my pages is original and written for this coursework. No copyrighted material has been reproduced. Images are royalty-free or AI-generated. The feedback form does not transmit data to any server — all processing is client-side JavaScript only. No cookies or personal data are stored. All code was written by me without using external frameworks or copied templates.</p>
+      </section>
+
+      <!-- 8. Meetings -->
+      <section id="meetings">
+  <h2>9. Group Meetings & Contribution Log</h2>
+  <table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Date & Time</th>
+      <th>Format</th>
+      <th>Objective</th>
+      <th>Attended</th>
+      <th>My Contribution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>10 Feb 2026 - 13:00</td>
+      <td>Face to face</td>
+      <td>Agree SDG topic and assign individual roles</td>
+      <td>Yes</td>
+      <td>Proposed SDG 14 and volunteered for the template/home page role.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>17 Feb 2026 - 22:00</td>
+      <td>Online (WhatsApp Group Call)</td>
+      <td>Agree colour palette and overall visual style</td>
+      <td>Yes</td>
+      <td>Presented three colour palette options, the deep-ocean/navy/cyan palette was agreed.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>28 Feb 2026 - 23:00</td>
+      <td>Online (Google Meet)</td>
+      <td>Share template with all team members</td>
+      <td>Yes</td>
+      <td>Completed and shared the HTML template and style.css, explained which parts must not be modified.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>15 Mar 2026 - 20:00</td>
+      <td>Online (Google Meet)</td>
+      <td>Review progress of individual pages</td>
+      <td>Yes</td>
+      <td>Completed the Home Page and Gallery.</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>17 Mar 2026 - 23:00</td>
+      <td>Online (Google Meet)</td>
+      <td>Integration testing - checking all pages together</td>
+      <td>Yes</td>
+      <td>Tested all navigation links across every page, identified and flagged two broken links to teammates.</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>27 Mar 2026 - 02:00</td>
+      <td>Online</td>
+      <td>Final review and validation pass</td>
+      <td>Yes</td>
+      <td>Ran HTML validation on all pages; corrected stray closing tags on home.html and gallery.html.</td>
+    </tr>
+  </tbody>
+  </table>
+  </section>
+
+  <!-- 9. References -->
+  <section id="references">
+    <h2>9. References</h2>
+    <ul class="ref">
+        <li>Global Ghost Gear Initiative (2023) <em>About Ghost Gear</em>. Available at: <a href="https://www.ghostgear.org" target="_blank">https://www.ghostgear.org</a> [Accessed 10 February 2026].</li>        
+        <li>MDN Web Docs (2026) <em>CSS position: sticky</em>. Available at: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position" target="_blank">https://developer.mozilla.org/en-US/docs/Web/CSS/position</a> [Accessed 20 March 2026].</li>        
+        <li>Pngtree (2026) <em>Ocean Conservation Icons and Graphics</em>. Available at: <a href="https://pngtree.com" target="_blank">https://pngtree.com</a> [Accessed 30 March 2026].</li>
+        <li>United Nations (2024) <em>SDG 14: Life Below Water</em>. Available at: <a href="https://sdgs.un.org/goals/goal14" target="_blank">https://sdgs.un.org/goals/goal14</a> [Accessed 9 February 2026].</li>
+        <li>University of Westminster (2025) <em>4COSC011W: Web Design and Development</em>. [Lecture notes] Westminster Exchange. 2025/26.</li>
+        <li>W3Schools (2026) <em>HTML Forms Reference</em>. Available at: <a href="https://www.w3schools.com/html/html_forms.asp" target="_blank">https://www.w3schools.com/html/html_forms.asp</a> [Accessed 20 March 2026].</li>
+    </ul>
+</section>
+
+      <p class="top"><a href="#top">Go to Top</a></p>
+
+    </main>
+
+  </div>
+  <a href="#top" class="back-top" aria-label="Back to top">↑</a>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+
+        <div class="footer-section">
+          <h4>LifeBelowWater</h4>
+          <p style="font-size:0.85rem;color:#9ca89a;">A University of Westminster web development project <br> UN SDG 14 - Life Below Water.</p>
+        </div>
+
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <a href="home.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="team.html">Team</a>
+          <a href="sitemap.html">Sitemap</a>
+        </div>
+
+        <div class="footer-section">
+          <h4>This Page</h4>
+          <a href="pageEditor_ST3.html" target="_blank" style="color: #0289ff;">Page Editor - Lakmin Gayathra (Student 3)</a>
+          <a href="validation_ST3.html" target="_blank" style="color: #0289ff;">Validation - Lakmin Gayathra (Student 3)</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 LifeBelowWater | University of Westminster Web Design Coursework</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

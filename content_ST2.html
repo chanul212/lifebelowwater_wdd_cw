@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Below Water – Marine Biodiversity &amp; Coral Reefs</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+
+    :root {
+      --deep-ocean: #001219;
+      --navy: #005f73;
+      --teal: #0a9396;
+      --cyan: #94d2bd;
+      --seafoam: #e9d8a6;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #001219 0%, #003049 100%);
+      color: var(--white);
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    /* Content layout */
+    .content-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    @media (max-width: 768px) {
+      .content-layout { grid-template-columns: 1fr; }
+      .side-nav { display: none; }
+    }
+
+    /* Side navigation */
+    .side-nav {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      background: rgba(0,95,115,0.2);
+      border: 1px solid var(--teal);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .side-nav h3 {
+      color: var(--cyan);
+      margin: 0 0 14px;
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .side-nav a {
+      display: block;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.88rem;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(10,147,150,0.2);
+      transition: color 0.2s;
+    }
+
+    .side-nav a:hover {
+      color: var(--cyan);
+    }
+
+    .side-nav a:last-child {
+      border-bottom: none;
+    }
+
+    /* Article content */
+    .article h1 {
+      color: var(--cyan);
+      font-size: 2.4rem;
+      margin-bottom: 10px;
+      margin-top: 0;
+    }
+
+    .article .byline {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.88rem;
+      margin-bottom: 40px;
+    }
+
+    .article h2 {
+      color: var(--seafoam);
+      font-size: 1.5rem;
+      margin: 40px 0 20px 0;
+      border-left: 4px solid var(--teal);
+      padding-left: 15px;
+      line-height: 1.2;
+      text-align: left;
+    }
+
+    .article h3 {
+      color: var(--cyan);
+      font-size: 1.15rem;
+      margin: 24px 0 10px;
+    }
+
+    .article p {
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 18px;
+      max-width: 760px;
+    }
+
+    .article ul {
+      padding-left: 22px;
+      margin-bottom: 18px;
+    }
+
+    .article ul li {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 8px;
+    }
+
+    .article img {
+      width: 100%;
+      max-width: 700px;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin: 20px 0;
+      border: 1px solid rgba(10,147,150,0.4);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      display: block;
+    }
+
+    .img-caption {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.45);
+      margin-top: -14px;
+      margin-bottom: 20px;
+    }
+
+    .stat-box {
+      background: rgba(0,95,115,0.3);
+      border: 1px solid var(--teal);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 24px 0;
+      max-width: 700px;
+    }
+
+    .stat-box .stat-num {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: var(--seafoam);
+    }
+
+    .stat-box p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* top button */
+    .go-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--teal);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 46px;
+      height: 46px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      transition: background 0.3s ease;
+      z-index: 100;
+    }
+
+    .go-top:hover {
+      background: var(--navy);
+    }
+
+  </style>
+</head>
+<body>
+  <main id="top">
+
+    <nav class="navbar">
+      <div class="logo">
+        <a href="home.html"><img src="ALL_MEDIA/LIFE_UNDER_WATER.png" alt="Logo"></a>
+        <p><a href="home.html"><span style="color: #0289ff;">L</span>ife<span style="color: #0289ff;">B</span>elow<span style="color: #0289ff;">W</span>ater</a></p>
+      </div>
+      <ul class="nav-list">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="user_profile.html">Profile</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="sitemap.html">Sitemap</a></li>
+      </ul>
+    </nav>
+
+    <div class="content-layout">
+
+      <nav class="side-nav" aria-label="Page sections">
+        <h3>On This Page</h3>
+        <a href="#intro">Introduction</a>
+        <a href="#coral">Coral Reefs</a>
+        <a href="#biodiversity">Marine Biodiversity</a>
+        <a href="#threats">Key Threats</a>
+        <a href="#recovery">Recovery</a>
+        <a href="#action">Take Action</a>
+      </nav>
+
+      <article class="article">
+        <h1 id="intro">Marine Biodiversity &amp; Coral Reefs</h1>
+        <p class="byline">By Pabhasith Ranathunga (Student 2) | SDG 14: Life Below Water</p>
+
+        <p>The ocean hosts the most extraordinary diversity of life on Earth. From microscopic phytoplankton that produce half the world's oxygen, to blue whales stretching over 30 metres in length, marine biodiversity underpins the health of every ecosystem on the planet. Yet it is disappearing at a rate that scientists describe as the sixth mass extinction.</p>
+        <p>At the heart of ocean biodiversity are coral reefs — often called the rainforests of the sea. Despite covering less than 1% of the ocean floor, they support around 25% of all marine species and provide livelihoods for over 500 million people globally through fishing, tourism, and coastal protection.</p>
+
+        <img src="ALL_MEDIA/content_ST2_1.jpg" alt="fish swimming around the corals">
+        <p class="img-caption">A thriving coral reef ecosystem — one of the most biologically diverse environments on Earth.</p>
+
+        <h2 id="coral">Coral Reefs: Rainforests of the Sea</h2>
+        <p>Coral reefs are formed by tiny colonial animals called polyps, which secrete calcium carbonate skeletons over centuries to build vast reef structures. They exist in a symbiotic relationship with microscopic algae called zooxanthellae, which live within coral tissue and provide up to 90% of the coral's energy through photosynthesis.</p>
+        <p>When ocean temperatures rise even by 1–2°C above normal seasonal averages, corals expel their zooxanthellae in a stress response known as coral bleaching. Bleached coral is not immediately dead — but without its algae, it receives no nutrition and becomes vulnerable to disease. If temperatures do not return to normal within weeks, the coral starves and dies, leaving ghostly white skeletons.</p>
+
+        <div class="stat-box">
+          <div class="stat-num">50%</div>
+          <p>Of the world's coral reefs have been lost since 1950 — with projections suggesting up to 90% could disappear by 2050 without urgent action.</p>
+        </div>
+
+        <h2 id="biodiversity">Marine Biodiversity: More Than We Know</h2>
+        <p>Scientists estimate there are between 700,000 and 1 million species in the ocean, but fewer than 250,000 have been formally described. Every deep-sea expedition reveals new life forms — bioluminescent creatures, chemosynthetic bacteria thriving around hydrothermal vents, and fish with extraordinary adaptations to extreme pressure and darkness.</p>
+        <p>Marine biodiversity is not just scientifically fascinating — it is economically and medically vital. Many of the most promising compounds for treating cancer, antibiotic-resistant infections, and neurological conditions have been derived from marine organisms. Healthy marine ecosystems also regulate nutrient cycles, absorb carbon, and maintain the balance of gases in the atmosphere that all life depends upon.</p>
+
+        <h2 id="threats">Key Threats to Marine Biodiversity</h2>
+        <h3>Climate Change and Ocean Warming</h3>
+        <p>The ocean has absorbed over 90% of the excess heat generated by greenhouse gas emissions. This warming is shifting species ranges poleward, disrupting migration and breeding cycles, and bleaching coral reefs on a mass scale. The Great Barrier Reef has experienced five mass bleaching events since 1998, with the most recent and severe in 2022.</p>
+
+        <h3>Destructive Fishing Practices</h3>
+        <p>Bottom trawling — dragging heavy nets along the seafloor — can destroy centuries of reef structure in a single pass. Blast fishing, though illegal in many nations, remains widespread and obliterates entire reef communities instantly. Bycatch, the unintentional catch of non-target species such as dolphins, sea turtles, and seabirds, kills hundreds of thousands of animals annually.</p>
+
+        <h3>Coastal Development and Pollution</h3>
+        <p>Urban runoff carries fertilisers, sewage, and industrial chemicals into coastal waters, causing algal blooms that smother reefs and deplete oxygen. Dredging for coastal construction buries seagrass beds and disturbs sediment that blocks the light corals need to survive.</p>
+
+        <img src="ALL_MEDIA/content_ST2_2.avif" alt="coral bleaching">
+        <p class="img-caption">Mass coral bleaching caused by elevated ocean temperatures renders reef ecosystems lifeless.</p>
+
+        <h2 id="recovery">Signs of Recovery and Hope</h2>
+        <p>The news is not entirely grim. When protected and given space to recover, marine ecosystems demonstrate remarkable resilience. Marine Protected Areas (MPAs) have enabled fish populations, coral communities, and seagrass beds to bounce back significantly within just a few years of protection.</p>
+        <p>In the Maldives, communities have replanted thousands of coral fragments onto degraded reefs using steel frames — a process called coral gardening — with survival rates exceeding 70%. Researchers are also selectively breeding heat-tolerant coral strains in laboratories with the aim of restoring reefs that may otherwise succumb to warming waters.</p>
+        <ul>
+          <li>Marine Protected Areas cover around 8% of the global ocean — the target is 30% by 2030</li>
+          <li>Coral restoration projects are active in over 60 countries worldwide</li>
+          <li>Nations like Palau and Costa Rica have banned destructive fishing practices nationally</li>
+        </ul>
+
+        <h2 id="action">How You Can Help Protect Marine Biodiversity</h2>
+        <ul>
+          <li>Never purchase coral, shells, or marine souvenirs made from wild-caught species</li>
+          <li>Choose reef-safe sunscreen when swimming in the ocean (avoid oxybenzone and octinoxate)</li>
+          <li>Support organisations funding coral restoration such as the Coral Restoration Foundation</li>
+          <li>Reduce your carbon footprint to slow ocean warming</li>
+          <li>Advocate for expanded marine protected areas in your country</li>
+        </ul>
+
+        <img src="ALL_MEDIA/content_ST2_3.jpg" alt="Coral fragments frame underwater">
+        <p class="img-caption">Coral gardening programmes give degraded reefs a chance to recover with human assistance.</p>
+      </article>
+
+    </div>
+  </main>
+
+  <a href="#top" class="go-top" aria-label="Return to top of page">↑</a>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-section">
+          <h3>LifeBelowWater</h3>
+          <p style="font-size:0.85rem;color:#9ca89a;">A University of Westminster web development project <br> UN SDG 14 – Life Below Water.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <a href="home.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="team.html">Team</a>
+          <a href="sitemap.html">Sitemap</a>
+        </div>
+        <div class="footer-section">
+          <h3>This Page</h3>
+          <a href="pageEditor_ST2.html" target="_blank" style="color: #0289ff;">Page Editor - Pabhasith Ranathunga (Student 2)</a>
+          <a href="validation_ST2.html" target="_blank" style="color: #0289ff;">Validation - Pabhasith Ranathunga (Student 2)</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 LifeBelowWater | University of Westminster Web Design Coursework</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

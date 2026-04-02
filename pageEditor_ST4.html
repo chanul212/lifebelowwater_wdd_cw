@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Editor - Chanul Dilhara</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root{
+      --deep-ocean:#001219;
+      --navy:#005f73;
+      --teal:#0a9396;
+      --cyan:#94d2bd;
+      --seafoam:#e9d8a6;
+      --white:#ffffff
+    }
+
+    body {
+      line-height: 1.6;
+    }
+
+    /* Student details */
+    .stud {
+      background: linear-gradient(90deg, #001219, #005f73);
+      color: #94d2bd;
+      text-align: center;
+      margin-top: 100px;
+      font-size: 30px;
+      font-weight: bold;
+      padding: 10px;
+    }
+
+    main {
+      width: 100%;
+      padding-top: 0;
+    }
+
+    .toc {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(148, 210, 189, 0.2);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 40px;
+    }
+
+    .toc h2 {
+      color: #6ae6ff;
+      margin-bottom: 14px;
+      font-size: 1rem;
+      border-left: 4px solid #0a9396;
+      padding-left: 12px;
+      text-shadow: none;
+      text-align: left;
+    }
+
+    .toc a {
+      display: block;
+      color: #94d2bd;
+      text-decoration: none;
+      padding: 4px 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(148, 210, 189, 0.15);
+    }
+
+    .toc a:hover {
+      color: #0a9396;
+    }
+
+    .toc a:last-child {
+      border-bottom: none;
+    }
+
+    /* Sections */
+    section {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(148, 210, 189, 0.2);
+      border-radius: 10px;
+      padding: 28px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: #6ae6ff !important;
+      font-size: 1.3rem;
+      border-left: 4px solid #0a9396;
+      padding-left: 14px;
+      margin-bottom: 16px;
+      margin-top: 0;
+      text-align: left !important;
+      text-shadow: none !important;
+    }
+
+    h3 {
+      color: #94d2bd;
+      font-size: 1.05rem;
+      margin: 20px 0 10px;
+      text-align: left;
+      text-shadow: none;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.92rem;
+    }
+
+    ul {
+      padding-left: 22px;
+      margin-bottom: 14px;
+    }
+
+    ul li {
+      margin-bottom: 6px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.92rem;
+    }
+
+    /* Page link buttons */
+    .page-link {
+      display: inline-block;
+      background: #005f73;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin: 6px 6px 0 0;
+      transition: background 0.2s;
+    }
+
+    .page-link:hover {
+      background: #0a9396;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 10px;
+    }
+
+    th {
+      background: #005f73;
+      color: white;
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    td {
+      padding: 9px 12px;
+      border-bottom: 1px solid rgba(148, 210, 189, 0.2);
+      vertical-align: top;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.88rem;
+    }
+
+    tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    /* Go to top */
+    p.top {
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    p.top a {
+      color: #94d2bd;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+
+    p.top a:hover {
+      color: #0a9396;
+      text-decoration: underline;
+    }
+
+    /* Back to top */
+    .back-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0a9396;
+      color: white;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .back-top:hover {
+      background: #005f73;
+    }
+
+    .st_details {
+      color: white;
+      text-align: center;
+      background-color: #005f73;
+      padding: 20px;
+      margin: 20px auto;
+    }
+
+    /* Page layout with sidebar */
+    .page-layout {
+      display: flex;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px 80px;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    /* Left sidebar nav */
+    .side-nav {
+      width: 210px;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(148, 210, 189, 0.2);
+      border-radius: 10px;
+      padding: 20px 16px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .side-nav h4 {
+      color: #6ae6ff;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 14px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(148, 210, 189, 0.2);
+    }
+
+    .side-nav > ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .side-nav > ul > li {
+      margin-bottom: 12px;
+    }
+
+    .side-nav > ul > li > span {
+      color: #94d2bd;
+      font-size: 0.82rem;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .side-nav > ul > li > a {
+      color: #94d2bd;
+      font-size: 0.82rem;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      text-decoration: none;
+    }
+
+    .side-nav > ul > li > a:hover {
+      color: #0a9396;
+    }
+
+    .side-nav ul ul {
+      list-style: none;
+      padding-left: 10px;
+      margin: 0;
+    }
+
+    .side-nav ul ul li {
+      margin-bottom: 3px;
+      font-size: 0.92rem;
+    }
+
+    .side-nav ul ul li::before {
+      content: "○ ";
+      color: rgba(148, 210, 189, 0.5);
+      font-size: 0.7rem;
+    }
+
+    .side-nav ul ul li a {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .side-nav ul ul li a:hover {
+      color: #94d2bd;
+    }
+
+    .page-layout > main {
+      flex: 1;
+      min-width: 0;
+      padding-top: 0;
+      width: 100%;
+    }
+
+    @media (max-width: 760px) {
+      .page-layout { flex-direction: column; padding: 0 20px 60px; }
+      .side-nav { width: 100%; position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="home.html"><img src="ALL_MEDIA/LIFE_UNDER_WATER.png" alt="Logo"></a>
+      <p><a href="home.html"><span style="color: #0289ff;">L</span>ife<span style="color: #0289ff;">B</span>elow<span style="color: #0289ff;">W</span>ater</p></a>
+    </div>
+    <ul class="nav-list">
+      <a href="home.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="team.html">Team</a>
+      <a href="user_profile.html">Profile</a>
+      <a href="sitemap.html">Sitemap</a>
+    </ul>
+  </nav>
+
+  <!-- Student details -->
+  <p class="stud">Chanul Dilhara, Group 4 (Team 8), Student 4</p>
+
+  <div class="page-layout" id="top">
+
+    <!-- Left sidebar nav -->
+    <nav class="side-nav" aria-label="Core pages developed">
+      <h4>Core pages developed:</h4>
+      <ul>
+        <li>
+          <span>Student 1</span>
+          <ul>
+            <li><a href="home.html">Home page</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="content_ST1.html">Content</a></li>
+          </ul>
+        </li>
+        <li>
+          <span>Student 2</span>
+          <ul>
+            <li><a href="splash.html">Splash Screen</a></li>
+            <li><a href="quiz.html">Action Impact Simulator</a></li>
+            <li><a href="content_ST2.html">Content</a></li>
+          </ul>
+        </li>
+        <li>
+          <span>Student 3</span>
+          <ul>
+            <li><a href="feedback.html">Feedback</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="content_ST3.html">Content</a></li>
+          </ul>
+        </li>
+        <li>
+          <span>Student 4</span>
+          <ul>
+            <li><a href="user_profile.html">User Profile</a></li>
+            <li><a href="sitemap.html">Sitemap</a></li>
+            <li><a href="content_ST4.html">Content</a></li>
+          </ul>
+        </li>
+        <li><a href="#challenges">Challenges and Lessons Learned</a></li>
+        <li><a href="#janet">Compliance</a></li>
+        <li><a href="#meetings">Group Meetings and Individual Contribution Log</a></li>
+        <li><a href="#references">References</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <!-- 1. Overview -->
+      <section id="overview">
+        <h2>1. Student Overview</h2>
+        <p><strong>Name:</strong> Chanul Dilhara</p>
+        <p><strong>Role:</strong> User Profile & Sitemap Developer</p>
+        <p><strong>Completed Pages / Tasks:</strong></p>
+        <ul>
+          <li>User Profile (user_profile.html) - multi-step progressive profile builder with live preview card</li>
+          <li>Sitemap (sitemap.html) - fully responsive SVG visual sitemap with clickable nodes</li>
+          <li>Content Page - Sustainable Fisheries & Blue Economy (content_ST4.html)</li>
+        </ul>
+        <a href="user_profile.html" class="page-link" target="_blank">View User Profile</a>
+        <a href="sitemap.html" class="page-link" target="_blank">View Sitemap</a>
+        <a href="content_ST4.html" class="page-link" target="_blank">View Content Page</a>
+      </section>
+
+      <!-- 2. User Profile -->
+      <section id="profile">
+        <h2>2. User Profile Page</h2>
+        <h3>Technical Description</h3>
+        <p>The User Profile page uses a two-column CSS Grid layout (<code>grid-template-columns: 1fr 1fr</code>) to place the step-based input panel alongside the live profile preview card. On screens below 768px a media query collapses this to a single column.</p>
+        <p>The multi-step interface is controlled by JavaScript. Each step corresponds to a <code>&lt;div class="step-content"&gt;</code> block. Only the active step's block is shown (<code>display: block</code>), all others are hidden. Step tab buttons at the top of the panel are styled with <code>.active</code> and <code>.done</code> CSS classes, applied and removed by JavaScript as the user progresses. This avoids full page reloads between steps.</p>
+        <p>The live preview card is updated in real time by JavaScript <code>input</code> and <code>change</code> event listeners on each form field. When the user types their name, the preview card's name element updates immediately via <code>element.textContent</code>. Avatar selection uses a radio-button-like approach where clicking an avatar image calls a JavaScript function that updates the preview card's <code>&lt;img&gt;</code> <code>src</code> and adds a selected border to the chosen option. Pledge checkboxes build a displayed list in the preview card, appending or removing <code>&lt;li&gt;</code> elements via JavaScript DOM manipulation.</p>
+        <h3>Accessibility</h3>
+        <p>Step tab buttons are native <code>&lt;button&gt;</code> elements, keyboard-accessible by default. Each input field has an associated <code>&lt;label&gt;</code>. The two-column grid collapses on mobile so the input and preview are stacked vertically and readable without horizontal scrolling. The profile layout uses <code>aria-label</code> on the steps panel for screen-reader landmark clarity.</p>
+        <a href="validation_ST4.html#profileVal" class="page-link" target="_blank">See Validation Evidence</a>
+        <a href="user_profile.html" class="page-link" target="_blank">View User Profile Page</a>
+      </section>
+
+      <!-- 3. Sitemap -->
+      <section id="sitemap">
+        <h2>3. Sitemap</h2>
+        <h3>Technical Description</h3>
+        <p>The sitemap is implemented as an inline SVG with a <code>viewBox="0 0 960 620"</code> coordinate system. Setting <code>width: 100%; height: auto</code> on the SVG element makes it fully responsive -the diagram scales to fit any container without losing its internal proportions or requiring JavaScript resize handlers.</p>
+        <p>The site hierarchy is represented using SVG <code>&lt;rect&gt;</code> elements for nodes and <code>&lt;line&gt;</code> elements for connectors. Each node is wrapped in an <code>&lt;a&gt;</code> element linking to the corresponding HTML page, making the entire diagram interactive. Nodes use CSS class <code>.site-node</code> with a CSS transition on <code>fill</code> so hover states animate smoothly. The current page (Sitemap) is highlighted with the cyan fill colour and a gold star label to distinguish it visually.</p>
+        <p>Text labels inside the SVG use <code>&lt;text&gt;</code> elements with <code>text-anchor="middle"</code> and <code>pointer-events: none</code> to prevent text from intercepting mouse clicks that should reach the underlying <code>&lt;rect&gt;</code>. A legend below the SVG uses HTML flexbox to display colour swatches explaining the node colour coding (Home, Main Pages, Content Pages, Student 4 pages).</p>
+        <h3>Accessibility</h3>
+        <p>The SVG includes a <code>&lt;title&gt;</code> and <code>&lt;desc&gt;</code> element describing the diagram for screen readers. Each <code>&lt;a&gt;</code> node wrapper includes an <code>aria-label</code> describing the destination page. All interactive nodes have <code>tabindex="0"</code>, allowing keyboard navigation through every node in the diagram.</p>
+        <a href="validation_ST4.html#sitemapVal" class="page-link" target="_blank">See Validation Evidence</a>
+        <a href="sitemap.html" class="page-link" target="_blank">View Sitemap</a>
+      </section>
+
+      <!-- 4. Content Page -->
+      <section id="content">
+        <h2>4. Content Page - Sustainable Fisheries & Blue Economy</h2>
+        <h3>Technical Description</h3>
+        <p>The content page uses the same shared two-column CSS Grid layout as the other content pages: a sticky 240px side navigation column and a <code>1fr</code> main article column. CSS custom property variables (<code>--teal</code>, <code>--cyan</code>, <code>--seafoam</code>) are used consistently throughout for colours, ensuring visual alignment with the rest of the site without duplicating hex values.</p>
+        <p>The page covers the overfishing crisis, blue economy framework, MSC certification, and a Sri Lanka fisheries focus section. Stat callout boxes use the shared <code>.stat-box</code> class pattern with a large <code>.stat-num</code> element in seafoam. Images are styled with <code>object-fit: cover; height: 300px</code> and a subtle teal border to frame them consistently. Gold border styling (<code>border: 2px solid var(--seafoam)</code>) is used on Student 4's assigned elements to visually distinguish them on the sitemap, mirroring the gold star convention in the SVG diagram.</p>
+        <h3>Accessibility</h3>
+        <p>The side navigation uses <code>aria-label="Page sections"</code>. All images have descriptive alt text. Internal anchor links use the shared <code>scroll-behavior: smooth</code>. The layout collapses to a single column on mobile and the side nav is hidden below 768px.</p>
+        <a href="validation_ST4.html#contentVal" class="page-link" target="_blank">See Validation Evidence</a>
+        <a href="content_ST4.html" class="page-link" target="_blank">View Content Page</a>
+      </section>
+
+      <!-- 5. Challenges -->
+      <section id="challenges">
+        <h2>5. Challenges & Lessons Learned</h2>
+        <p><strong>Challenge 1: SVG text clipping on small screens.</strong> At narrow viewport widths, SVG text labels inside node rectangles were clipped because the SVG scaled proportionally but the text <code>font-size</code> did not. Since SVG text does not respond to CSS <code>clamp()</code>, the solution was to wrap the entire SVG in a horizontally scrollable container (<code>overflow-x: auto</code>) with a minimum width, so the diagram always renders at a legible size.</p>
+        <p><strong>Challenge 2: Multi-step profile state persistence.</strong> When the user navigated back to a completed step, the previously entered values disappeared from the input fields because step visibility was toggled by showing/hiding divs. Resolved by reading stored values from a JavaScript state object when switching to a step, re-populating inputs via JavaScript before making the step visible.</p>
+        <p><strong>Challenge 3: Live preview card not updating on tab-away.</strong> The preview card failed to update when users changed a select element without using the mouse. Resolved by adding both <code>input</code> and <code>change</code> event listeners to each field to cover all interaction methods.</p>
+        <p><strong>Lesson:</strong> SVG is powerful for diagrams but requires careful planning for responsive behaviour from the start, as retrofitting responsiveness to a large fixed-coordinate SVG is time-consuming. Designing with a scalable viewBox approach from the outset avoids this.</p>
+      </section>
+
+      <!-- 6. Accessibility -->
+      <section id="accessibility">
+        <h2>6. Accessibility Considerations</h2>
+        <p>All images across my pages include descriptive alt text. The SVG sitemap includes a <code>&lt;title&gt;</code> and <code>&lt;desc&gt;</code> for screen readers, and all interactive nodes have <code>aria-label</code> attributes. Form inputs on the profile page have associated labels. The multi-step interface uses native <code>&lt;button&gt;</code> elements for step navigation. Keyboard focus is maintained correctly across step transitions. Colour contrast on all text elements meets WCAG 2.1 AA standards.</p>
+      </section>
+
+      <!-- 7. JANET -->
+      <section id="janet">
+        <h2>7. JANET Compliance</h2>
+        <p>All content on my pages is original and does not reproduce copyrighted material. Images are royalty-free or AI-generated. The user profile page does not store or transmit any data all processing is done client-side in memory only. No cookies are used. All HTML, CSS, and JavaScript was written by me without using third-party libraries or copied templates. SDG-related content references credible sources.</p>
+      </section>
+
+  <!-- 8. Meetings -->
+  <section id="meetings">
+  <h2>9. Group Meetings & Contribution Log</h2>
+  <table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Date & Time</th>
+      <th>Format</th>
+      <th>Objective</th>
+      <th>Attended</th>
+      <th>My Contribution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>10 Feb 2026 - 13:00</td>
+      <td>Face to face</td>
+      <td>Agree SDG topic and assign individual roles</td>
+      <td>Yes</td>
+      <td>Proposed SDG 14 and volunteered for the template/home page role.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>17 Feb 2026 - 22:00</td>
+      <td>Online (WhatsApp Group Call)</td>
+      <td>Agree colour palette and overall visual style</td>
+      <td>Yes</td>
+      <td>Presented three colour palette options, the deep-ocean/navy/cyan palette was agreed.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>28 Feb 2026 - 23:00</td>
+      <td>Online (Google Meet)</td>
+      <td>Share template with all team members</td>
+      <td>Yes</td>
+      <td>Completed and shared the HTML template and style.css, explained which parts must not be modified.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>15 Mar 2026 - 20:00</td>
+      <td>Online (Google Meet)</td>
+      <td>Review progress of individual pages</td>
+      <td>Yes</td>
+      <td>Completed the Home Page and Gallery.</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>17 Mar 2026 - 23:00</td>
+      <td>Online (Google Meet)</td>
+      <td>Integration testing - checking all pages together</td>
+      <td>Yes</td>
+      <td>Tested all navigation links across every page, identified and flagged two broken links to teammates.</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>27 Mar 2026 - 02:00</td>
+      <td>Online</td>
+      <td>Final review and validation pass</td>
+      <td>Yes</td>
+      <td>Ran HTML validation on all pages; corrected stray closing tags on home.html and gallery.html.</td>
+    </tr>
+  </tbody>
+  </table>
+  </section>
+
+    <!-- 9.References -->
+    <section id="references">
+    <h2>9. References</h2>
+    <ul class="ref">
+        <li>FAO (2022) <em>The State of World Fisheries and Aquaculture</em>. [Online] Available at: <a href="https://www.fao.org/fishery/en/publication/272388" target="_blank">https://www.fao.org/fishery/en/publication/272388</a> [Accessed 10 February 2026].</li>
+        <li>Marine Stewardship Council (2024) <em>What is the MSC?</em> [Online] Available at: <a href="https://www.msc.org" target="_blank">https://www.msc.org</a> [Accessed 20 March 2026].</li>
+        <li>MDN Web Docs (2026) <em>SVG: Scalable Vector Graphics</em>. [Online] Available at: <a href="https://developer.mozilla.org/en-US/docs/Web/SVG" target="_blank">https://developer.mozilla.org/en-US/docs/Web/SVG</a> [Accessed 20 March 2026].</li>
+        <li>Pngtree (2026) <em>Free PNG images, backgrounds and vectors</em>. [Online] Available at: <a href="https://pngtree.com" target="_blank">https://pngtree.com</a> [Accessed 30 March 2026].</li>
+        <li>United Nations (2024) <em>SDG 14: Life below water</em>. [Online] Available at: <a href="https://sdgs.un.org/goals/goal14" target="_blank">https://sdgs.un.org/goals/goal14</a> [Accessed 9 February 2026].</li>
+        <li>University of Westminster (2025) <em>4COSC011W: Web design and development</em>. [Lecture notes] Westminster Exchange. 2025/26.</li>
+        <li>Vecteezy (2026) <em>Free vector art, stock photos &amp; videos</em>. [Online] Available at: <a href="https://www.vecteezy.com" target="_blank">https://www.vecteezy.com</a> [Accessed 30 March 2026].</li>
+    </ul>
+    </section>
+
+      <p class="top"><a href="#top">Go to Top</a></p>
+
+    </main>
+
+  </div>
+  <a href="#top" class="back-top" aria-label="Back to top">↑</a>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+
+        <div class="footer-section">
+          <h4>LifeBelowWater</h4>
+          <p style="font-size:0.85rem;color:#9ca89a;">A University of Westminster web development project <br> UN SDG 14 - Life Below Water.</p>
+        </div>
+
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <a href="home.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="team.html">Team</a>
+          <a href="sitemap.html">Sitemap</a>
+        </div>
+
+        <div class="footer-section">
+          <h4>This Page</h4>
+          <a href="pageEditor_ST4.html" target="_blank" style="color: #0289ff;">Page Editor - Chanul Dilhara (Student 4)</a>
+          <a href="validation_ST4.html" target="_blank" style="color: #0289ff;">Validation - Chanul Dilhara (Student 4)</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 LifeBelowWater | University of Westminster Web Design Coursework</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

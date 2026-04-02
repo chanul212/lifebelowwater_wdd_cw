@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Below Water – Plastic Pollution &amp; Ocean Waste</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+
+    :root {
+      --deep-ocean: #001219;
+      --navy: #005f73;
+      --teal: #0a9396;
+      --cyan: #94d2bd;
+      --seafoam: #e9d8a6;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #001219 0%, #003049 100%);
+      color: var(--white);
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    /* Content layout */
+    .content-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    @media (max-width: 768px) {
+      .content-layout { grid-template-columns: 1fr; }
+      .side-nav { display: none; }
+    }
+
+    /* Side navigation */
+    .side-nav {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      background: rgba(0,95,115,0.2);
+      border: 1px solid var(--teal);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .side-nav h3 {
+      color: var(--cyan);
+      margin: 0 0 14px;
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .side-nav a {
+      display: block;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.88rem;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(10,147,150,0.2);
+      transition: color 0.2s;
+    }
+
+    .side-nav a:hover {
+      color: var(--cyan);
+    }
+
+    .side-nav a:last-child {
+      border-bottom: none;
+    }
+
+    /* Article content */
+    .article h1 {
+      color: var(--cyan);
+      font-size: 2.4rem;
+      margin-bottom: 10px;
+      margin-top: 0;
+    }
+
+    .article .byline {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.88rem;
+      margin-bottom: 40px;
+    }
+
+    .article h2 {
+      color: var(--seafoam);
+      font-size: 1.5rem;
+      margin: 40px 0 20px 0;
+      border-left: 4px solid var(--teal);
+      padding-left: 15px;
+      line-height: 1.2;
+      text-align: left;
+    }
+
+    .article h3 {
+      color: var(--cyan);
+      font-size: 1.15rem;
+      margin: 24px 0 10px;
+    }
+
+    .article p {
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 18px;
+      max-width: 760px;
+    }
+
+    .article ul {
+      padding-left: 22px;
+      margin-bottom: 18px;
+    }
+
+    .article ul li {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 8px;
+    }
+
+    .article img {
+      width: 100%;
+      max-width: 700px;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin: 20px 0;
+      border: 1px solid rgba(10,147,150,0.4);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      display: block;
+    }
+
+    .img-caption {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.45);
+      margin-top: -14px;
+      margin-bottom: 20px;
+    }
+
+    .stat-box {
+      background: rgba(0,95,115,0.3);
+      border: 1px solid var(--teal);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 24px 0;
+      max-width: 700px;
+    }
+
+    .stat-box .stat-num {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: var(--seafoam);
+    }
+
+    .stat-box p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* top button */
+    .go-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--teal);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 46px;
+      height: 46px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      transition: background 0.3s ease;
+      z-index: 100;
+    }
+
+    .go-top:hover {
+      background: var(--navy);
+    }
+
+  </style>
+</head>
+<body>
+  <main id="top">
+
+    <nav class="navbar">
+      <div class="logo">
+        <a href="home.html"><img src="ALL_MEDIA/LIFE_UNDER_WATER.png" alt="Logo"></a>
+        <p><a href="home.html"><span style="color: #0289ff;">L</span>ife<span style="color: #0289ff;">B</span>elow<span style="color: #0289ff;">W</span>ater</a></p>
+      </div>
+      <ul class="nav-list">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="user_profile.html">Profile</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="sitemap.html">Sitemap</a></li>
+      </ul>
+    </nav>
+
+    <div class="content-layout">
+
+      <nav class="side-nav" aria-label="Page sections">
+        <h3>On This Page</h3>
+        <a href="#intro">Introduction</a>
+        <a href="#scale">Scale of the Problem</a>
+        <a href="#microplastics">Microplastics</a>
+        <a href="#ghost-gear">Ghost Gear</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#action">What You Can Do</a>
+      </nav>
+
+      <article class="article">
+        <h1 id="intro">Plastic Pollution &amp; Ocean Waste</h1>
+        <p class="byline">By Lakmina Gayathra (Student 3) | SDG 14: Life Below Water</p>
+
+        <p>Plastic is one of the most revolutionary materials ever invented by humanity — durable, lightweight, and cheap to produce. But these very qualities make it one of the most destructive pollutants ever to enter our oceans. Unlike organic waste, plastic does not biodegrade. It persists in the environment for hundreds to thousands of years, fragmenting into ever-smaller particles that infiltrate every level of the marine food chain.</p>
+
+        <img src="ALL_MEDIA/content_ST3_1.jpeg" alt="Plastic in beach">
+        <p class="img-caption">Single-use plastics accumulate on coastlines and in ocean gyres worldwide.</p>
+
+        <h2 id="scale">The Scale of the Problem</h2>
+        <p>Since mass plastic production began in the 1950s, an estimated 8.3 billion tonnes of plastic have been produced globally. Of this, only about 9% has been recycled, 12% incinerated, and the remaining 79% has accumulated in landfills or the natural environment. The ocean bears a disproportionate share of this burden.</p>
+        <p>Rivers act as conveyor belts, transporting land-based plastic waste to the sea. It is estimated that just 10 rivers — most of them in Asia and Africa — are responsible for carrying approximately 90% of all river-borne plastic into the ocean. Ocean currents then concentrate this debris into massive rotating garbage patches — the largest of which, the Great Pacific Garbage Patch, covers an area estimated at twice the size of Texas.</p>
+
+        <div class="stat-box">
+          <div class="stat-num">79%</div>
+          <p>Of all plastic ever produced has ended up in landfill or the natural environment — including our oceans.</p>
+        </div>
+
+        <h2 id="microplastics">The Hidden Threat: Microplastics</h2>
+        <p>When larger plastic items are exposed to sunlight and wave action, they break into microplastics — particles smaller than 5mm. These are now ubiquitous in the marine environment, found in Arctic sea ice, the deepest ocean trenches, and even in the air we breathe.</p>
+        <p>Marine organisms from zooplankton to whales ingest microplastics, either mistaking them for food or absorbing them through filter feeding. Microplastics carry adsorbed toxic chemicals including persistent organic pollutants and heavy metals, which accumulate in fatty tissue and magnify in concentration as they move up the food chain — a process called biomagnification. Studies have now detected microplastics in human blood, breast milk, and placental tissue.</p>
+
+        <h3>Primary vs. Secondary Microplastics</h3>
+        <ul>
+          <li><strong>Primary:</strong> Manufactured at microscopic size — microbeads in cosmetics, pellets (nurdles) used in plastic production, fibres from synthetic clothing</li>
+          <li><strong>Secondary:</strong> Result from the breakdown of larger plastic items — bottles, bags, fishing nets, packaging</li>
+        </ul>
+
+        <h2 id="ghost-gear">Ghost Gear: The Invisible Killer</h2>
+        <p>Abandoned, lost, or discarded fishing gear — collectively known as ghost gear — is considered the most harmful form of marine plastic debris. Ghost nets continue to fish indefinitely, entangling and drowning marine mammals, sea turtles, sharks, and seabirds in a cycle called ghost fishing.</p>
+        <p>The Global Ghost Gear Initiative estimates that approximately 640,000 tonnes of fishing gear is lost or abandoned in the ocean every year. A single abandoned net can persist for decades, drifting across ocean basins and killing marine life throughout its journey.</p>
+
+        <img src="ALL_MEDIA/content_ST3_2.jpg" alt="Abandoned fishing net around coral">
+        <p class="img-caption">Ghost gear entangles and kills marine animals long after it is abandoned by fishing vessels.</p>
+
+        <h2 id="solutions">Solutions: Turning the Tide on Plastic</h2>
+        <h3>Policy Interventions</h3>
+        <ul>
+          <li>The UN Global Plastics Treaty, currently being negotiated, aims to create a legally binding international agreement to reduce plastic production, improve waste management, and fund clean-up in developing nations</li>
+          <li>The EU's Single-Use Plastics Directive has already banned ten of the most common marine litter items found on European beaches</li>
+          <li>Extended Producer Responsibility (EPR) schemes require manufacturers to fund the end-of-life management of their products</li>
+        </ul>
+
+        <h3>Technological Innovations</h3>
+        <ul>
+          <li>The Ocean Cleanup project deploys passive floating barriers in the Great Pacific Garbage Patch</li>
+          <li>Enzymatic bioreactors are being developed to break down PET plastics using naturally occurring bacteria</li>
+          <li>Biodegradable alternatives made from seaweed, mycelium, and agricultural waste are entering the market</li>
+        </ul>
+
+        <h2 id="action">What You Can Do Right Now</h2>
+        <ul>
+          <li>Carry a reusable bag, bottle, and coffee cup to eliminate daily single-use plastic</li>
+          <li>Switch to solid shampoo bars and plastic-free toiletries to reduce bathroom plastic waste</li>
+          <li>Wash synthetic clothes in a Guppyfriend bag to capture microplastic fibres</li>
+          <li>Participate in or organise a local beach or river clean-up</li>
+          <li>Contact your local representative to support plastic reduction legislation</li>
+          <li>Support brands that use certified recycled materials and have genuine take-back programmes</li>
+        </ul>
+
+        <img src="ALL_MEDIA/content_ST3_3.webp" alt="Collecting plastic waste">
+        <p class="img-caption">Community beach clean-ups remove plastic before it breaks into harmful microplastics.</p>
+      </article>
+
+    </div>
+  </main>
+
+  <a href="#top" class="go-top" aria-label="Return to top of page">↑</a>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-section">
+          <h3>LifeBelowWater</h3>
+          <p style="font-size:0.85rem; color:#9ca89a;">A University of Westminster web development project <br> UN SDG 14 – Life Below Water.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <a href="home.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="team.html">Team</a>
+          <a href="sitemap.html">Sitemap</a>
+        </div>
+        <div class="footer-section">
+          <h3>This Page</h3>
+          <a href="pageEditor_ST3.html" target="_blank" style="color: #0289ff;">Page Editor - Lakmina Gayathra (Student 3)</a>
+          <a href="validation_ST3.html" target="_blank" style="color: #0289ff;">Validation - Lakmina Gayathra (Student 3)</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 LifeBelowWater | University of Westminster Web Design Coursework</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
